@@ -1,0 +1,54 @@
+{
+  "testedAt": "2026-10-27T03:50:05.155Z",
+  "browser": "Chrome/154.0.8037.57",
+  "results": [
+    {
+      "tool": "background",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "3 synthetic backgrounds / real status enum",
+        "edit/save/reload exact",
+        "JSON fresh-context restore",
+        "escaped HTML export",
+        "invalid JSON/corrupt PNG preservation",
+        "stale save refusal",
+        "storage quota failure display",
+        "mobile fit"
+      ]
+    },
+    {
+      "tool": "background",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "no JS exceptions",
+        "no external/live API/write HTTP requests"
+      ]
+    },
+    {
+      "tool": "background",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "3 synthetic backgrounds / real status enum",
+        "edit/save/reload exact",
+        "JSON fresh-context restore",
+        "escaped HTML export",
+        "invalid JSON/corrupt PNG preservation",
+        "stale save refusal",
+        "storage quota failure display",
+        "mobile fit"
+      ]
+    },
+    {
+      "tool": "background",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "no JS exceptions",
+        "no external/live API/write HTTP requests"
+      ]
+    }
+  ]
+}

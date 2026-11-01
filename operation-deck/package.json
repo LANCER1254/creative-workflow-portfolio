@@ -1,0 +1,13 @@
+{
+  "name": "ai-operation-deck-demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Offline portfolio demonstration with synthetic data",
+  "scripts": {
+    "test:static": "python3 tests/static_check.py",
+    "test:browser": "node tests/browser.cjs"
+  },
+  "devDependencies": {
+    "puppeteer": "25.12.0"
+  }
+}

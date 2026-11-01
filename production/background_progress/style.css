@@ -1,0 +1,248 @@
+:root {
+  --bg-shell: #f6efe3;
+  --bg-card: #fffaf0;
+  --bg-line: #d9c8af;
+  --bg-text: #2c261d;
+  --bg-muted: #6f614c;
+  --bg-accent: #bf7d1a;
+  --bg-accent-strong: #9e6510;
+  --bg-danger: #c33d2f;
+  --bg-ok: #2d7a4e;
+  --bg-shadow: 0 10px 24px rgba(70, 51, 23, 0.14);
+}
+
+.mode-header {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+}
+
+.mode-switch {
+  display: inline-flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mode-switch button[aria-pressed="true"] {
+  background: linear-gradient(180deg, var(--bg-accent), var(--bg-accent-strong));
+  color: #fff;
+  border-color: var(--bg-accent-strong);
+}
+
+.bg-shell {
+  background: linear-gradient(180deg, #faf4e8, #f5ead8);
+  border: 1px solid var(--bg-line);
+  border-radius: 18px;
+  box-shadow: var(--bg-shadow);
+  padding: 1rem;
+}
+
+.bg-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.bg-sidebar,
+.bg-editor {
+  background: var(--bg-card);
+  border: 1px solid rgba(168, 139, 96, 0.25);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.bg-table-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.bg-table-item {
+  width: 100%;
+  display: grid;
+  gap: 0.35rem;
+  text-align: left;
+  padding: 0.85rem 0.95rem;
+  border-radius: 14px;
+  border: 1px solid rgba(168, 139, 96, 0.3);
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(88, 64, 24, 0.06);
+}
+
+.bg-table-item[aria-pressed="true"] {
+  border-color: var(--bg-accent);
+  box-shadow: 0 0 0 2px rgba(191, 125, 26, 0.18);
+}
+
+.bg-table-item .meta {
+  color: var(--bg-muted);
+  font-size: 0.82rem;
+}
+
+.bg-table-item .title {
+  font-weight: 700;
+}
+
+.bg-table-item .flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  width: fit-content;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  background: #efe5d1;
+  color: #5d4c33;
+}
+
+.bg-table-item .flag.is-missing {
+  background: #f5ddd7;
+  color: #8f3a2b;
+}
+
+.bg-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.bg-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.bg-meta-grid label,
+.bg-row-card label {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.bg-meta-grid input,
+.bg-meta-grid textarea,
+.bg-row-card input,
+.bg-row-card textarea,
+.bg-row-card select {
+  width: 100%;
+}
+
+.bg-meta-grid textarea,
+.bg-row-card textarea {
+  min-height: 4.5rem;
+}
+
+.bg-meta-grid .wide {
+  grid-column: 1 / -1;
+}
+
+.bg-recovery {
+  margin-top: 0.75rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 14px;
+  background: #fff3d8;
+  border: 1px solid #e3c57a;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.bg-recovery strong {
+  color: #7b4d07;
+}
+
+.bg-row-list {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.bg-row-card {
+  border: 1px solid rgba(168, 139, 96, 0.28);
+  border-radius: 16px;
+  background: #fff;
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.bg-row-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.bg-row-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.bg-row-grid .wide {
+  grid-column: 1 / -1;
+}
+
+.bg-row-image {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+}
+
+.bg-row-preview {
+  min-height: 160px;
+  border-radius: 12px;
+  border: 1px dashed rgba(100, 81, 50, 0.3);
+  background: rgba(255, 255, 255, 0.66);
+  display: grid;
+  place-items: center;
+  color: var(--bg-muted);
+  overflow: hidden;
+}
+
+.bg-row-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.bg-row-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.bg-empty {
+  padding: 1.2rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px dashed rgba(100, 81, 50, 0.28);
+  color: var(--bg-muted);
+}
+
+.status-message.bg-status {
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 1080px) {
+  .bg-layout,
+  .bg-row-grid,
+  .bg-meta-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .mode-header,
+  .no-print {
+    display: none !important;
+  }
+
+  .bg-shell {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    background: #fff;
+  }
+}

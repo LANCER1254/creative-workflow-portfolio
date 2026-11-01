@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "queueSets": [
+    {
+      "id": "default",
+      "name": "展示準備ロット",
+      "executor": "work"
+    }
+  ],
+  "notes": [
+    {
+      "id": "demo-plan",
+      "title": "体験コーナーの説明文を短くする",
+      "memo": "困りごと：展示で説明が長くなり、体験まで進めない。\n受入条件：説明を3文にまとめ、PCで表示確認する。",
+      "completionMemo": "",
+      "date": "",
+      "column": "Next",
+      "color": "yellow",
+      "priority": 9,
+      "queueSetId": "default",
+      "queueStatus": "queued",
+      "queueRole": "task",
+      "queueOrder": 1
+    },
+    {
+      "id": "demo-review",
+      "title": "公開前に本人が画面を確認する",
+      "memo": "説明文が伝わるか、画面を本人が確認する。技術検証と本人受入を分ける。",
+      "completionMemo": "確認はまだです。前の作業の結果と残件を見てから実施。",
+      "date": "",
+      "column": "Next",
+      "color": "pink",
+      "priority": 7,
+      "queueSetId": "default",
+      "queueStatus": "queued",
+      "queueRole": "task",
+      "queueOrder": 2
+    },
+    {
+      "id": "demo-done",
+      "title": "案内カードの合成サンプルを用意",
+      "memo": "デモ用の架空カード。実案件は含みません。",
+      "completionMemo": "合成サンプルを用意しました。次の担当：説明文の検討へ。",
+      "date": "",
+      "column": "Done",
+      "color": "green"
+    }
+  ]
+}

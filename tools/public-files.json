@@ -1,0 +1,175 @@
+{
+  "scope": "only public_tools; synthetic data; license pending",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "d1422c26dd1768f5b624ca4914bc4e7c3243409727d36cde0d9be8fccb91bbfa",
+      "bytes": 5021
+    },
+    {
+      "path": "character/app.js",
+      "sha256": "19f2d567c244a7facaab9db12ef38c3435a157ef0320a35b31dcdd752df4eacc",
+      "bytes": 425
+    },
+    {
+      "path": "character/calculator.js",
+      "sha256": "057b12e1244dc0c929f8ad56689c8082a61c92c3744983bff4e9496c8d40c4b0",
+      "bytes": 3554
+    },
+    {
+      "path": "character/demo.js",
+      "sha256": "7fdcd84779cf5f3d6b429eba524624d1cc92a9c719551c02c6608c24b8535341",
+      "bytes": 2918
+    },
+    {
+      "path": "character/image_loader.js",
+      "sha256": "924fbee9e01d1dea3c363c01126158df0c204530b6ca3ba9d6ad7544cb00aff2",
+      "bytes": 1940
+    },
+    {
+      "path": "character/index.html",
+      "sha256": "e91ccbbd42ae6fdc4600bf1a116d52ee13a90846aaaf46209e6c114752ca209e",
+      "bytes": 3799
+    },
+    {
+      "path": "character/models.js",
+      "sha256": "ef3c1a1eee7fe9276877a296c108b737d717bc70124b445df7b163bd890d8d79",
+      "bytes": 2531
+    },
+    {
+      "path": "character/renderer.js",
+      "sha256": "84f0b54c15f1dd41c530d88486986bda127bdd4f1c0c12a9270a7ec90c8906a0",
+      "bytes": 6902
+    },
+    {
+      "path": "character/style.css",
+      "sha256": "22de6ad84ffa53717aef7260a4612fd0e29c1c16c64d0dd75d2e0b88698efad8",
+      "bytes": 5696
+    },
+    {
+      "path": "character/ui.js",
+      "sha256": "c62d041d2d26de87632866baf88fc2f73b35a4d36530f15cde07ce739602087b",
+      "bytes": 1416
+    },
+    {
+      "path": "docs/PROVENANCE.md",
+      "sha256": "43f32dc256d1c8f4a67864e696057766ebbf4edd0cddc6e84aa07e89e0ad4c2f",
+      "bytes": 1570
+    },
+    {
+      "path": "docs/PUBLISHING.md",
+      "sha256": "ad407905cd09d19a6a108600ecd9ee6f43c0dfe6214cac73a8ee55ea05f7b3d1",
+      "bytes": 1546
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "sha256": "a55d4032e3466f5306733da3958bb31dae8173902c1cf87a2500c1dce56c54fd",
+      "bytes": 1388
+    },
+    {
+      "path": "docs/screenshots/character-1440.png",
+      "sha256": "cfd1010990691685d300a8a9d0b600183b6d6ade9a58e1777acb4f36994b1a7b",
+      "bytes": 168200
+    },
+    {
+      "path": "docs/screenshots/character-390.png",
+      "sha256": "8b66073dc74db929cab5b54f74a1120748f8da0580e65bc30f067dc1e43b13b3",
+      "bytes": 144413
+    },
+    {
+      "path": "docs/screenshots/hub-1440.png",
+      "sha256": "0d8fd449981c6ca7e92236f0c2323d7793b82eb2ddfab979ad20da11227144a7",
+      "bytes": 161936
+    },
+    {
+      "path": "docs/screenshots/hub-390.png",
+      "sha256": "bcd03f0ab61b5f3e172c3da03f11ef40977355b1ad7573a2165379d3ac209ffa",
+      "bytes": 152133
+    },
+    {
+      "path": "docs/screenshots/kanban-1440.png",
+      "sha256": "6a1e670b762ec3f204ecf939c6a223b4709e73a641ce4c7435846482fd7e85f1",
+      "bytes": 233621
+    },
+    {
+      "path": "docs/screenshots/kanban-390.png",
+      "sha256": "5a89f04bbe725b8fe4dd717fd0e84e8e0c3d946fe76e3ea7ba024a8c553c4bc4",
+      "bytes": 195774
+    },
+    {
+      "path": "docs/screenshots/memo-1440.png",
+      "sha256": "0894647f2e3683b4d613942200c44e5959adb3f711226e3604961699200b4cf8",
+      "bytes": 502152
+    },
+    {
+      "path": "docs/screenshots/memo-390.png",
+      "sha256": "9a6700e2f1310200b93f15505944436353989ef227132b5d65bef4c3a6730f49",
+      "bytes": 236494
+    },
+    {
+      "path": "docs/validation.json",
+      "sha256": "0ad7f50a6a0679e2bd381d24e06acebc4effe117f5a0db37b465a6e50d93b666",
+      "bytes": 2975
+    },
+    {
+      "path": "index.html",
+      "sha256": "52ee8bfbad3c9de92c4a7fe8b74d8ec6352eee7c8c1ee862a5c83590d4bbcf1a",
+      "bytes": 2730
+    },
+    {
+      "path": "kanban/fusion_model.js",
+      "sha256": "10bd1262b59546bced38751bb9a830943578b8cb549cf8fb5bb9d01622fdcd78",
+      "bytes": 2237
+    },
+    {
+      "path": "kanban/index.html",
+      "sha256": "d81a429d465c828e1136e1e2fc026b5d2f392aaf668ae666c035d7f0d07aef1e",
+      "bytes": 21835
+    },
+    {
+      "path": "kanban/meeting_state.js",
+      "sha256": "da2d0d176b2b0c2f464cb6cd487ed095cdef909bc39310b5603c66b5c51da3ce",
+      "bytes": 1116
+    },
+    {
+      "path": "kanban/reservation_model.js",
+      "sha256": "432c0231f81659333fdab36d6d7c43c02a2f0e6802d55989858c9e385c7084c3",
+      "bytes": 4285
+    },
+    {
+      "path": "kanban/sample.json",
+      "sha256": "978adee3c0d26ac7908b5e037dfb0bc6b9cfb651de4455037f223c7d7258e6f1",
+      "bytes": 1527
+    },
+    {
+      "path": "kanban/sticky_kanban.css",
+      "sha256": "64136d4dbf87ffd97c1f371a6421b47695fb2ebfb19762601733cc570ffbfe63",
+      "bytes": 28173
+    },
+    {
+      "path": "kanban/sticky_kanban.js",
+      "sha256": "3b96c6d4e0d557e4898d20da2de6469aba13715b01999707bae33d6dac13edfd",
+      "bytes": 78601
+    },
+    {
+      "path": "memo/index.html",
+      "sha256": "f5f0b33b96938b0b90e4f4f39c05c0f09a7ce06c419f62864d62c10ffbbd20ba",
+      "bytes": 51905
+    },
+    {
+      "path": "package.json",
+      "sha256": "d14b056dcea4d54d25b436061ceefab1e73851fcd6f5b9a417b3391c3bc59a69",
+      "bytes": 254
+    },
+    {
+      "path": "tests/browser.cjs",
+      "sha256": "37d346c6d60eb0e7db11466b070994d6192d811a814b63ff6f4c4b07b138eb53",
+      "bytes": 12679
+    },
+    {
+      "path": "tests/static_check.py",
+      "sha256": "e1e1d5d4b9f748b6b3f5a105874fa75b2f2b21c99f9fc19c794dd324f656eafb",
+      "bytes": 880
+    }
+  ]
+}

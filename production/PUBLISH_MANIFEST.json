@@ -1,0 +1,226 @@
+{
+  "format": 1,
+  "scope": "public_production only; no parent git/history/internal evidence",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2615,
+      "sha256": "b1d4f41d23af2066ea97d27929e9339a030383ecb39780850115b218714bb300"
+    },
+    {
+      "path": "background_progress/app.js",
+      "bytes": 24272,
+      "sha256": "d44537dbdc7eb800d6b4de9fe25329655136033e74253448d0bb3ff9419ed3c4"
+    },
+    {
+      "path": "background_progress/demo-store.js",
+      "bytes": 2222,
+      "sha256": "5712a05cc93024335d3705ddb2b298f12d8be9e130713baac9d6b72411e0de17"
+    },
+    {
+      "path": "background_progress/model.js",
+      "bytes": 10807,
+      "sha256": "bf16d351b7aa5a445bea90c491f7aacf62c122e593a1b97d5025aa3be393a23d"
+    },
+    {
+      "path": "background_progress/style.css",
+      "bytes": 4174,
+      "sha256": "fa70f49e9f6c1ad0dc4d975161938b81796b564758cf21b0d900485b2143b43f"
+    },
+    {
+      "path": "data_loader.js",
+      "bytes": 13420,
+      "sha256": "a124147e89e19ac34088811c35f5df3bcc6a59c421c67e6869fc61acf4ff70af"
+    },
+    {
+      "path": "docs/DESIGN.md",
+      "bytes": 2152,
+      "sha256": "87be02e37205bd70621a59921be132930aa80d77a6bdd50f514949e1d84683f7"
+    },
+    {
+      "path": "docs/PUBLISHING.md",
+      "bytes": 1452,
+      "sha256": "6310367354336aa82bdd1f932e4e0c9c6c060dbd1b291d17258b627ce00fd16d"
+    },
+    {
+      "path": "docs/RESTORE.md",
+      "bytes": 1344,
+      "sha256": "563a4fc6960821455384f18505a0e06129a4e6d62875283bc10db9035da69dfa"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "bytes": 2546,
+      "sha256": "e13a1e68e4e35d4e1540153b053a5cd435e3bf37aa60df87bff5e2d6d3702a22"
+    },
+    {
+      "path": "docs/screenshots/background-1440.png",
+      "bytes": 186326,
+      "sha256": "cef7e219a941ea09d803110fe27a6ab5ac044168a3f2c0e9ec72c71041fc3f3e"
+    },
+    {
+      "path": "docs/screenshots/background-390.png",
+      "bytes": 107066,
+      "sha256": "039cc241871480cd3587c59beac5293ffa6f97db7499b8b5f469ddcb10c3e1d2"
+    },
+    {
+      "path": "docs/screenshots/background-editor-1440.png",
+      "bytes": 117933,
+      "sha256": "930dd89a4468b6eabc558f099606421612add4777977ff8771fe0f006d9fa1a5"
+    },
+    {
+      "path": "docs/screenshots/background-editor-390.png",
+      "bytes": 50821,
+      "sha256": "af2c25fb1634c55f5cbbc60a1db372c867e00ad274fd05a2afca13302b91ded5"
+    },
+    {
+      "path": "docs/screenshots/storyboard-1440.png",
+      "bytes": 157040,
+      "sha256": "cf4bb5d550f7ae632c5e11a1f5d5d1da92e33109d5f838004ab08e18797d3dd3"
+    },
+    {
+      "path": "docs/screenshots/storyboard-390.png",
+      "bytes": 102192,
+      "sha256": "a487b0a1d1cc9b77070ea812e815327b76fecd44a4e5ba6a377f59135e37b016"
+    },
+    {
+      "path": "docs/screenshots/storyboard-editor-1440.png",
+      "bytes": 90452,
+      "sha256": "a47b1ff5a53d9e22a7f5967cf4080d28a89a0b355ab72a53ca8fb129cdc2e497"
+    },
+    {
+      "path": "docs/screenshots/storyboard-editor-390.png",
+      "bytes": 47237,
+      "sha256": "e39a4088a0f97c592d0eb974d517518682f51fa624289d45a8bfda78038ad6e5"
+    },
+    {
+      "path": "docs/screenshots/writing-1440.png",
+      "bytes": 227566,
+      "sha256": "0c9f14fa4b0b99c49858c69411e1a32c2b25aec27abad2611765f00930005245"
+    },
+    {
+      "path": "docs/screenshots/writing-390.png",
+      "bytes": 117535,
+      "sha256": "5960b36b54c42fdf1e894744e4afa719d51d69e8c9a2f0efec913df6fadebee6"
+    },
+    {
+      "path": "docs/screenshots/writing-plot-1440.png",
+      "bytes": 218434,
+      "sha256": "87ec54ae6de0980e4f47bb98c21207c3e079c0dab6a12341a28bac1daa57cdb7"
+    },
+    {
+      "path": "docs/screenshots/writing-plot-390.png",
+      "bytes": 103501,
+      "sha256": "53998750d5b5ec294e98b72c01967d7687927bfc8e9f7ae294365dd898a99d42"
+    },
+    {
+      "path": "docs/validation-background.json",
+      "bytes": 1300,
+      "sha256": "b9e9805b452ca2c7669caa44fef9b7f2f2ccd216a69edcd236edd11e63eafe06"
+    },
+    {
+      "path": "docs/validation-storyboard.json",
+      "bytes": 1156,
+      "sha256": "d728d4765b338c00f9b7bafb293c9f493120b02108c02934482c3d2613802168"
+    },
+    {
+      "path": "docs/validation-writing.json",
+      "bytes": 1264,
+      "sha256": "8a79ba6cf49b3eeb0f8e5d3f97b2fd6fbb98bc5ee14027787330e15fa956b3af"
+    },
+    {
+      "path": "index.html",
+      "bytes": 2331,
+      "sha256": "e7a2935ba74da0ae36c644a05b7ff5384ef7253d67ac758bbd89f1265ee34135"
+    },
+    {
+      "path": "package.json",
+      "bytes": 102,
+      "sha256": "734fe2350071f3eeca12c1694dbd214ebc9b9314f7cb81e2b607fa29f80291c9"
+    },
+    {
+      "path": "samples/background.json",
+      "bytes": 11169,
+      "sha256": "760d404a0ee70472528aba0fbf5113a1f800e1ce2ced70ccbcb0974e27403328"
+    },
+    {
+      "path": "samples/sample-data.js",
+      "bytes": 26039,
+      "sha256": "1eb2f664e9f9e6a84bb182c92d27f89be2a2f6bff1f1bf4ba215ef014f81bf7a"
+    },
+    {
+      "path": "samples/storyboard.json",
+      "bytes": 11454,
+      "sha256": "cd27aeb8da127c42d680a9d4e557dc48a41887c93fc305937780a6b1f10dc036"
+    },
+    {
+      "path": "samples/writing.json",
+      "bytes": 5416,
+      "sha256": "a12df4badc9a60934fa09e6a4a195d93db274c23a3a411aecc5180320b05262c"
+    },
+    {
+      "path": "shared/demo.css",
+      "bytes": 2250,
+      "sha256": "38be52e1836954f776b2b00dce95469d32f91b14b1b237450f33a29e64ce17fd"
+    },
+    {
+      "path": "shared/safe.js",
+      "bytes": 1704,
+      "sha256": "9847119495c21a2953b2bfc53c73647084d7f52854dfdedc6fea5bfa1d9e1b7e"
+    },
+    {
+      "path": "storyboard/app.js",
+      "bytes": 20074,
+      "sha256": "6a7fd3c1ec1420e80ffe0eca3a483de5bfe5eaefdef7c66744c1449c7bde07b0"
+    },
+    {
+      "path": "storyboard/index.html",
+      "bytes": 15008,
+      "sha256": "7991be49ba9c1c8f90b88b2d264ca815698e4c9433512c735a13f967085db2bf"
+    },
+    {
+      "path": "storyboard/model.js",
+      "bytes": 3345,
+      "sha256": "90acad7b1d0da787ec70af2f3f759d54fe52b3f7870f127151d522c96b5670cb"
+    },
+    {
+      "path": "storyboard/sheet.css",
+      "bytes": 2636,
+      "sha256": "33773c4d929200e26d9e1f5ccefa0a7cf65bac1de9821d59dcf61bea6d29d654"
+    },
+    {
+      "path": "storyboard/style.css",
+      "bytes": 4760,
+      "sha256": "9eccc90eac575b37844dad4cd8258e9ee424e232d823f7f0605a40f990ced324"
+    },
+    {
+      "path": "tests/browser.cjs",
+      "bytes": 13136,
+      "sha256": "4930497fc5eeaa7a0e4d533d6119cca28744775fa7ab6fcc80e16476d9a14178"
+    },
+    {
+      "path": "writing/demo.js",
+      "bytes": 2419,
+      "sha256": "74fa1dcf637b0b38efb4d65b646749770a636112f4483d76b7b10c5b11833f52"
+    },
+    {
+      "path": "writing/index.html",
+      "bytes": 1901,
+      "sha256": "7708e0cc47d8f5d20ec5a258072515122bf5128e920775354b3d5aaedf6eece9"
+    },
+    {
+      "path": "writing/writing_asset_links.js",
+      "bytes": 6444,
+      "sha256": "196b92468e620aba317e6399c2d37a1227b587bb6e0ec57db3a2afa72d33857c"
+    },
+    {
+      "path": "writing/writing_status.css",
+      "bytes": 14962,
+      "sha256": "53c6915ab09404c6838284ef19576e93c3ae7e7f9e072595ca2be0b2406c49dc"
+    },
+    {
+      "path": "writing/writing_status_view.js",
+      "bytes": 16395,
+      "sha256": "24d4972c66459a03b226240f78682617ad6cd33bbd34d6483e1773bd814c5fd3"
+    }
+  ]
+}

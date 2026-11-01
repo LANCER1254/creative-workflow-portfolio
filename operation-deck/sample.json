@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "queueSets": [
+    {
+      "id": "default",
+      "name": "1ロット目｜Work",
+      "executor": "work"
+    },
+    {
+      "id": "codex",
+      "name": "Codex",
+      "executor": "codex"
+    },
+    {
+      "id": "hold-review",
+      "name": "保留・確認待ち",
+      "executor": "work"
+    },
+    {
+      "id": "reserve-demo",
+      "name": "控え｜大型案件",
+      "executor": "work"
+    }
+  ],
+  "notes": [
+    {
+      "id": "demo-work",
+      "title": "上部タブのグループ化（サンプル）",
+      "column": "Next",
+      "queueSetId": "default",
+      "queueStatus": "queued",
+      "memo": "サンプル。承認範囲と最新版を確認してから実装を依頼。関連: demo-meeting"
+    },
+    {
+      "id": "demo-meeting",
+      "title": "制作会議｜タブ分類（サンプル）",
+      "cardType": "meeting",
+      "column": "Done",
+      "memo": "サンプルの会議結果。実装担当カード demo-work。"
+    },
+    {
+      "id": "demo-game",
+      "title": "DEV｜ゲーム進行検証（サンプル）",
+      "column": "Next",
+      "queueSetId": "codex",
+      "queueStatus": "queued"
+    },
+    {
+      "id": "demo-human",
+      "title": "画面の本人確認（サンプル）",
+      "column": "Hold",
+      "queueSetId": "hold-review",
+      "queueStatus": "blocked",
+      "review": {
+        "status": "pending"
+      }
+    },
+    {
+      "id": "demo-maint",
+      "title": "定期メンテ｜保全照合（サンプル）",
+      "column": "Next",
+      "queueSetId": "default",
+      "queueStatus": "queued"
+    },
+    {
+      "id": "demo-handoff",
+      "title": "引き継ぎ｜前回の残件（サンプル）",
+      "column": "Next",
+      "memo": "判断の反映は未確認。"
+    },
+    {
+      "id": "demo-research",
+      "title": "調査｜描画方式の設計（サンプル）",
+      "column": "Next"
+    },
+    {
+      "id": "demo-reserve",
+      "title": "控え親案件｜全体図（サンプル）",
+      "column": "Later",
+      "queueSetId": "reserve-demo",
+      "queueStatus": "blocked"
+    },
+    {
+      "id": "demo-ops",
+      "title": "OPS｜END改善（サンプル）",
+      "column": "Next"
+    }
+  ]
+}

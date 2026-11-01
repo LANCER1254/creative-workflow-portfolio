@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "project": {
+    "items": [
+      {
+        "item_id": "demo-1",
+        "issue_number": 1,
+        "title": "第1章 出発",
+        "status": "Done",
+        "writing_stage": "脱稿",
+        "deadline": "2026-12-01",
+        "labels": [
+          "シナリオ"
+        ],
+        "description": "合成の執筆進捗例",
+        "repository": "demo/fiction"
+      },
+      {
+        "item_id": "demo-2",
+        "issue_number": 2,
+        "title": "第2章 橋の向こう",
+        "status": "Todo",
+        "writing_stage": "推敲・改稿",
+        "deadline": "2026-12-01",
+        "labels": [
+          "シナリオ"
+        ],
+        "description": "合成の執筆進捗例",
+        "repository": "demo/fiction"
+      },
+      {
+        "item_id": "demo-3",
+        "issue_number": 3,
+        "title": "第3章 遠い灯",
+        "status": "Todo",
+        "writing_stage": "初稿執筆中",
+        "deadline": "2026-12-01",
+        "labels": [
+          "シナリオ"
+        ],
+        "description": "合成の執筆進捗例",
+        "repository": "demo/fiction"
+      },
+      {
+        "item_id": "demo-4",
+        "issue_number": 4,
+        "title": "第4章 帰り道",
+        "status": "Todo",
+        "writing_stage": "校正・校閲待ち",
+        "deadline": null,
+        "labels": [
+          "シナリオ"
+        ],
+        "description": "合成の執筆進捗例",
+        "repository": "demo/fiction"
+      },
+      {
+        "item_id": "demo-5",
+        "issue_number": 5,
+        "title": "第5章 新しい便り",
+        "status": "Todo",
+        "writing_stage": "未着手",
+        "deadline": null,
+        "labels": [
+          "シナリオ"
+        ],
+        "description": "合成の執筆進捗例",
+        "repository": "demo/fiction"
+      }
+    ],
+    "source": {
+      "writing_stage_options": [
+        "未着手",
+        "初稿執筆中",
+        "推敲・改稿",
+        "校正・校閲待ち",
+        "脱稿"
+      ]
+    }
+  },
+  "manifest": {
+    "schema_version": 1,
+    "entries": [
+      {
+        "repository": "demo/fiction",
+        "issue_number": 1,
+        "episode_id": "CH01",
+        "verification": "unverified",
+        "notes": "公開デモ用の架空資料",
+        "documents": {
+          "plot": {
+            "repository": "demo/fiction",
+            "path": "samples/chapter1.md"
+          }
+        },
+        "directories": {}
+      },
+      {
+        "repository": "demo/fiction",
+        "issue_number": 2,
+        "episode_id": "CH02",
+        "verification": "unverified",
+        "notes": "公開デモ用の架空資料",
+        "documents": {
+          "plot": {
+            "repository": "demo/fiction",
+            "path": "samples/chapter2.md"
+          }
+        },
+        "directories": {}
+      },
+      {
+        "repository": "demo/fiction",
+        "issue_number": 3,
+        "episode_id": "CH03",
+        "verification": "unverified",
+        "notes": "公開デモ用の架空資料",
+        "documents": {
+          "plot": {
+            "repository": "demo/fiction",
+            "path": "samples/chapter3.md"
+          }
+        },
+        "directories": {}
+      },
+      {
+        "repository": "demo/fiction",
+        "issue_number": 4,
+        "episode_id": "CH04",
+        "verification": "unverified",
+        "notes": "公開デモ用の架空資料",
+        "documents": {
+          "plot": {
+            "repository": "demo/fiction",
+            "path": "samples/chapter4.md"
+          }
+        },
+        "directories": {}
+      },
+      {
+        "repository": "demo/fiction",
+        "issue_number": 5,
+        "episode_id": "CH05",
+        "verification": "unverified",
+        "notes": "公開デモ用の架空資料",
+        "documents": {
+          "plot": {
+            "repository": "demo/fiction",
+            "path": "samples/chapter5.md"
+          }
+        },
+        "directories": {}
+      }
+    ]
+  },
+  "plots": {
+    "schema_version": 1,
+    "entries": [
+      {
+        "issue_number": 1,
+        "episode_id": "CH01",
+        "path": "samples/chapter1.md",
+        "markdown": "# 第1章 出発\n\n配達人が次の町へ向かう、架空の場面メモです。\n\n実作品の本文ではありません。"
+      },
+      {
+        "issue_number": 2,
+        "episode_id": "CH02",
+        "path": "samples/chapter2.md",
+        "markdown": "# 第2章 橋の向こう\n\n配達人が次の町へ向かう、架空の場面メモです。\n\n実作品の本文ではありません。"
+      },
+      {
+        "issue_number": 3,
+        "episode_id": "CH03",
+        "path": "samples/chapter3.md",
+        "markdown": "# 第3章 遠い灯\n\n配達人が次の町へ向かう、架空の場面メモです。\n\n実作品の本文ではありません。"
+      },
+      {
+        "issue_number": 4,
+        "episode_id": "CH04",
+        "path": "samples/chapter4.md",
+        "markdown": "# 第4章 帰り道\n\n配達人が次の町へ向かう、架空の場面メモです。\n\n実作品の本文ではありません。"
+      },
+      {
+        "issue_number": 5,
+        "episode_id": "CH05",
+        "path": "samples/chapter5.md",
+        "markdown": "# 第5章 新しい便り\n\n配達人が次の町へ向かう、架空の場面メモです。\n\n実作品の本文ではありません。"
+      }
+    ]
+  }
+}

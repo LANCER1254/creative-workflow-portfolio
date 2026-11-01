@@ -1,0 +1,50 @@
+{
+  "testedAt": "2026-10-27T03:50:09.188Z",
+  "browser": "Chrome/154.0.8037.57",
+  "results": [
+    {
+      "tool": "writing",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "5 chapters and exact summaries",
+        "stage filter / synthetic plot preview",
+        "JSON input roundtrip",
+        "empty/missing manifest refused preserving display",
+        "HTML/Markdown payload remains text",
+        "read-only original functionality / mobile fit"
+      ]
+    },
+    {
+      "tool": "writing",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "no JS exceptions",
+        "no external/live API/write HTTP requests"
+      ]
+    },
+    {
+      "tool": "writing",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "5 chapters and exact summaries",
+        "stage filter / synthetic plot preview",
+        "JSON input roundtrip",
+        "empty/missing manifest refused preserving display",
+        "HTML/Markdown payload remains text",
+        "read-only original functionality / mobile fit"
+      ]
+    },
+    {
+      "tool": "writing",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "no JS exceptions",
+        "no external/live API/write HTTP requests"
+      ]
+    }
+  ]
+}

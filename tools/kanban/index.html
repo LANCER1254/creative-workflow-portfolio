@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>付箋カンバン</title>
+  <link rel="stylesheet" href="sticky_kanban.css">
+  <script src="fusion_model.js" defer></script>
+  <script src="reservation_model.js" defer></script>
+  <script src="meeting_state.js" defer></script>
+  <script src="sticky_kanban.js" defer></script>
+
+<style>.demo-intro{padding:24px;line-height:1.7;background:#f3f7fc;border-bottom:1px solid #d5e0eb}.demo-intro h1{font-size:30px;margin:6px 0}.demo-intro p{max-width:900px}.demo-intro button{padding:10px 16px}.demo-intro ol{padding-left:22px}.demo-intro input{max-width:100%}@media(max-width:600px){.demo-intro{padding:18px}.demo-intro h1{font-size:25px}.demo-intro label{display:block}}</style></head>
+<body><section class="demo-intro"><a href="../index.html">← デモ一覧</a><p>STICKY KANBAN / 合成3カード</p><h1>「何をしたか」から、次の担当までつなぐ。</h1><p>依頼が埋もれる、結果だけで残件が分からない。カードに目的・結果・次の担当を残し、予約順で進めます。</p><ol><li>黄色のカードを選び「編集」</li><li>完了メモへ結果と残件を書き、列をDoneに変更して保存</li><li>「予約タスク」で次のカードを確認</li></ol><button id="demo-export">JSON保存</button><label>JSON復元 <input id="demo-import" type="file" accept=".json"></label><p>このデモ内の記録操作です。AI起動・実タスク実行・クラウド保存は接続していません。</p></section>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon" aria-hidden="true">🗒️</span><div><h1>付箋カンバン</h1><p>やることを付箋で、かんたん管理</p></div></div>
+    <button class="primary" id="new-note" type="button">＋ 新しい付箋</button>
+  </header>
+  <p id="save-status" class="save-status" role="status" aria-live="polite">読み込み中…</p>
+  <nav class="json-tools nav-tree" aria-label="ツールのツリーメニュー">
+    <details class="nav-tree-root" open><summary>🗂 ツールメニュー <small>暫定ツリー</small></summary>
+      <div class="nav-tree-groups">
+        <details class="nav-tree-group"><summary>常時</summary><div class="nav-tree-items">
+          <button id="toggle-queue" type="button" aria-haspopup="dialog">⏰ 予約タスク (0)</button>
+
+
+        </div></details>
+        <details class="nav-tree-group"><summary>制作</summary><div class="nav-tree-items">
+          <button hidden id="toggle-meeting-queue" type="button" aria-haspopup="dialog">🗣 会議予約</button>
+          <button id="toggle-production" type="button" aria-expanded="false" aria-controls="production-panel">🎬 制作 (12)</button>
+
+        </div></details>
+        <details class="nav-tree-group"><summary>管理</summary><div class="nav-tree-items">
+          <button id="toggle-maintenance" type="button" aria-expanded="false" aria-controls="maintenance-panel">🔧 定期メンテナンス (5)</button>
+          <button id="toggle-rules" type="button" aria-expanded="false" aria-controls="rules-panel">📘 運用ルール (0)</button>
+          <button id="toggle-handoffs" type="button" aria-expanded="false" aria-controls="handoff-panel">🔗 引き継ぎ (0)</button>
+          <button id="toggle-followups" type="button" aria-expanded="false" aria-controls="followup-panel">📋 後続タスク (0)</button>
+          <button id="new-fusion" type="button">🃏 融合する</button>
+        </div></details>
+        <details class="nav-tree-group"><summary>保全・履歴</summary><div class="nav-tree-items">
+          <button id="json-save" type="button">保存状態</button>
+          <button id="toggle-archive" type="button" aria-expanded="false" aria-controls="archive-panel">📦 アーカイブ (0)</button>
+          <button id="archive-done" type="button">📥 Doneを保管</button>
+          <button id="json-load" type="button">🔄 再読込</button>
+        </div></details>
+      </div>
+    </details>
+    <p id="json-status" role="status" aria-live="polite">変更はこのデモのブラウザ内に保存します。外部同期なし。</p>
+  </nav>
+  <dialog id="meeting-queue-dialog" aria-labelledby="meeting-queue-heading">
+    <div class="queue-heading"><div><span class="queue-eyebrow">MEETING RESERVATIONS</span><h2 id="meeting-queue-heading">会議予約ロット①</h2></div><button id="meeting-queue-close" type="button" autofocus>閉じる</button></div>
+    <p class="queue-notice">会議④「パン屋の接客補完」の後に、⑤〜⑧を順番に開催します。コピーした開始プロンプトをChatへ渡してください。閲覧・コピーでは会議も実装も開始しません。</p>
+    <div class="meeting-queue-actions"><button id="meeting-queue-reload" type="button">予約を再読込</button><span id="meeting-queue-status" role="status" aria-live="polite">未取得</span></div>
+    <div id="meeting-queue-list"></div>
+    <details id="meeting-queue-history"><summary>閉廷済み・取消の会議</summary><div id="meeting-queue-history-list"></div></details>
+    <label for="meeting-queue-prompt">選択した会議の開始プロンプト</label><textarea id="meeting-queue-prompt" rows="12" readonly></textarea>
+    <button id="meeting-queue-copy" class="primary" type="button" disabled>開始プロンプトをコピー</button>
+    <p id="meeting-queue-message" role="status" aria-live="polite"></p>
+    <p class="queue-help">会議状態は元カードの記録です。取得失敗・閉廷・実装完了を区別します。議事録保存と閉廷後のWork引き継ぎは各会議で実施し、通常の実装予約へ自動投入しません。</p>
+  </dialog>
+  <p id="done-backlog-status" class="save-status" role="status" aria-live="polite"></p>
+  <dialog id="json-preview">
+    <h2>JSONの内容を確認</h2>
+    <p id="json-summary"></p>
+    <textarea id="json-content" readonly rows="12" aria-label="復元するJSONの全内容"></textarea>
+    <p>反映すると現在の付箋をこの内容に置き換えます。取り消すと変更しません。</p>
+    <button id="json-apply" type="button">確認して置き換える</button>
+    <button id="json-cancel" type="button">取り消す</button>
+  </dialog>
+  <dialog id="queue-dialog" aria-labelledby="queue-heading">
+    <div class="queue-heading"><div><span class="queue-eyebrow">WORK QUEUE</span><h2 id="queue-heading">予約タスク</h2></div><button id="queue-close" type="button" autofocus>閉じる</button></div>
+    <p class="queue-notice">ロットと順番を選び、開始依頼をコピーして担当のWork／Codexへ渡してください。登録だけでは自動実行されません。</p>
+    <div class="queue-set-toolbar"><label for="queue-set-select">予約ロット</label><select id="queue-set-select"></select><label for="queue-set-executor">担当</label><select id="queue-set-executor"><option value="work">Work</option><option value="codex">Codex</option></select><label for="queue-set-date">実行予定日（JST・未指定可）</label><input id="queue-set-date" type="date"><input id="queue-set-name" maxlength="60" placeholder="出勤前・昼休憩後など" aria-label="新しいロット名"><button id="queue-set-create" type="button">＋ ロット作成</button><button id="queue-set-rename" type="button">名前・担当・予定日を保存</button><button id="queue-set-delete" type="button">空ロットを削除</button></div>
+    <div class="queue-toolbar"><button id="queue-sort" type="button">優先度順に並べる</button><button id="queue-add-done" type="button">＋ Done整理</button>
+    <button id="queue-add-end" type="button">＋ 最後にEND処理</button><button id="queue-export" type="button">このロットの開始依頼</button></div>
+    <p class="queue-help">優先度は1が最優先。同じ優先度は登録順。↑↓で調整した順を保存します。Hold・失敗・未完了があれば同じロットの後続とENDを止めます。別ロットへは自動で進みません。着手記録は全ロットで同時に1件です。</p>
+    <p id="queue-error" role="alert"></p><div id="queue-list"></div>
+    <details id="queue-history"><summary id="queue-history-heading">完了・取消 (0)</summary><div id="queue-history-list"></div></details>
+    <section id="queue-export-panel" hidden><label for="queue-instructions">実行依頼の下書き</label><textarea id="queue-instructions" rows="10" readonly></textarea><button id="queue-copy" type="button">指示書をコピー</button></section>
+  </dialog>
+  <dialog id="fusion-dialog" aria-labelledby="fusion-heading">
+    <div class="fusion-heading"><h2 id="fusion-heading">🃏 融合カード</h2><button id="fusion-close" type="button" autofocus>閉じる</button></div>
+    <p id="fusion-summary"></p>
+    <section id="fusion-view" hidden><div class="fusion-actions"><button id="fusion-reconfigure" type="button">構成・名前を編集</button><button id="fusion-release" type="button">融合解除</button></div><div id="fusion-members"></div></section>
+    <form id="fusion-form">
+      <label for="fusion-title">融合カード名</label><input id="fusion-title" maxlength="120" required placeholder="例：制作会議①〜⑤">
+      <label for="fusion-search">カードを探す</label><input id="fusion-search" type="search" placeholder="タイトルで絞り込み">
+      <p id="fusion-selected-count"></p><div id="fusion-choices"></div>
+      <button id="fusion-save" class="primary" type="submit">融合する</button>
+    </form><p id="fusion-error" role="alert"></p>
+  </dialog>
+  <dialog id="handoff-dialog"  aria-labelledby="handoff-dialog-title">
+    <div class="handoff-dialog-heading"><h2 id="handoff-dialog-title"></h2><button id="handoff-close" type="button" autofocus>閉じる</button></div>
+    <p id="handoff-state" class="handoff-state"></p>
+    <div id="handoff-source-links"></div>
+    <h3>詳細メモ・根拠</h3><div id="handoff-memo" class="detail-memo"></div>
+    <h3>処理記録</h3><div id="handoff-result" class="detail-memo"></div>
+    <button id="handoff-cardify" type="button" class="primary">📋 カード化</button>
+    <p class="queue-help">カード化した後、そのまま進めるか会議で詰めるかを選べます。</p>
+    <form id="handoff-form">
+      <label for="handoff-target">移管先の既存カードID</label><input id="handoff-target" autocomplete="off" placeholder="移管する場合に入力">
+      <label for="handoff-reason">判断・処理のメモ</label><textarea id="handoff-reason" rows="3" maxlength="1200" placeholder="取り下げ・解消確認の根拠、または移管する範囲"></textarea>
+      <div class="handoff-actions"><button type="submit" value="transfer">既存カードへ移管</button><button type="submit" value="confirmed">解消を確認</button><button type="submit" value="withdraw">取り下げ</button><button id="handoff-reopen" type="button">未処理へ戻す</button></div>
+      <p id="handoff-error" role="alert"></p>
+    </form>
+  </dialog>
+  <main class="workspace">
+    <section class="board-panel" aria-label="付箋ボード">
+      <section id="production-panel" class="production-panel" aria-label="制作会議の候補" hidden><h2>🎬 制作会議テーマ</h2><p>未閉廷と閉廷済みを分けて表示します。閉廷は議論・仕様決定の完了で、実装完了とは別です。閉廷済みカードは会議アーカイブへ保管し、後から一覧へ戻せます。</p><div id="production-list"></div></section>
+      <section id="maintenance-panel" class="maintenance-panel" aria-label="定期メンテナンス一覧" hidden>
+        <h2>🔧 定期メンテナンス</h2>
+        <p>原則毎週木曜日（JST）。5つの枠を開いて確認し、実施日・結果・残件をメモに記録します。</p>
+        <div id="maintenance-list"></div>
+      </section>
+      <section id="rules-panel" class="rules-panel" aria-label="運用ルール一覧" hidden>
+        <div class="rules-heading"><div><h2>📘 運用ルール</h2><p>作業カードとは別に保管します。ルールを選ぶと右側で全文を読めます。</p></div><button id="new-rule" type="button">＋ ルール追加</button></div>
+        <div id="rules-list"></div>
+      </section>
+      <section id="handoff-panel" class="handoff-panel" aria-label="引き継ぎ一覧" hidden>
+        <h2>🔗 引き継ぎ</h2><p>Done・アーカイブ後の残件と確認候補。タイトルを押すと詳細を小窓で開きます。移管済みは作業完了を意味しません。</p>
+        <div id="handoff-list"></div><details><summary id="handoff-resolved-heading">処理済み・移管先あり (0)</summary><div id="handoff-resolved-list"></div></details>
+      </section>
+      <section id="followup-panel" class="followup-panel" aria-label="後続タスク一覧" hidden>
+        <h2>📋 後続タスク</h2><p>引き継ぎからカード化・移管したタスク。通常ボードと同じカードです。詳細・編集・予約から、次の進め方を選べます。</p>
+        <p id="followup-error" role="alert"></p><div id="followup-list"></div>
+      </section>
+      <section id="archive-panel" class="archive-panel" aria-label="アーカイブした付箋" hidden><h2>アーカイブ</h2><p>詳細・完了メモは保持しています。戻すとDone列へ復帰します。</p><div id="archive-list"></div></section>
+      <nav class="board-navigation" aria-label="ボードの横移動">
+        <span>左右にスクロールして各列を表示</span>
+        <button id="board-left" type="button" aria-label="左の列へ移動" aria-controls="board-scroll">← 左へ</button>
+        <button id="board-right" type="button" aria-label="右の列へ移動" aria-controls="board-scroll">右へ →</button>
+      </nav>
+      <div class="board-scroll" id="board-scroll" tabindex="0" role="region" aria-label="付箋一覧。左右キーで横スクロール"><div class="board" id="board" aria-label="付箋のボード"></div></div>
+    </section>
+    <aside class="editor" aria-labelledby="editor-heading">
+      <div class="detail-header"><h2 id="editor-heading">付箋の詳細</h2><button id="edit-selected" type="button" hidden>編集</button></div>
+      <section id="note-detail" aria-live="polite">
+        <p id="detail-empty" class="detail-empty">付箋を選ぶと、ここに詳細を表示します。</p>
+        <div id="detail-content" hidden>
+          <h3 id="detail-title"></h3>
+          <div id="detail-task-flags" class="task-flags"></div>
+          <div class="detail-meta"><span id="detail-column"></span><time id="detail-date"></time></div>
+          <div class="detail-reservation-actions"><button id="reserve-selected" type="button" hidden>⏰ 予約する</button></div>
+          <div class="archive-actions"><button id="archive-selected" type="button" hidden>アーカイブする</button><button id="restore-selected" type="button" hidden>Doneへ戻す</button></div>
+          <details class="memo-section" open><summary>詳細メモ</summary><button type="button" data-copy-field="memo">詳細メモをコピー</button><div id="detail-memo" class="detail-memo"></div></details>
+          <details class="memo-section" id="detail-minutes-section" open hidden><summary>議事録メモ</summary><button type="button" data-copy-field="minutesMemo">議事録メモをコピー</button><div id="detail-minutes-memo" class="detail-memo"></div></details>
+          <details class="memo-section" open><summary>完了メモ</summary><button type="button" data-copy-field="completionMemo">完了メモをコピー</button><div id="detail-completion-memo" class="detail-memo"></div></details>
+        </div>
+      </section>
+      <form id="note-form" hidden>
+        <label for="note-title">タイトル <span class="required">必須</span></label>
+        <input id="note-title" name="title" type="text" maxlength="120" required placeholder="やることを入力…" autocomplete="off">
+        <label for="note-card-type">カード種別</label>
+        <select id="note-card-type" name="cardType"><option value="standard">通常カード</option><option value="meeting">会議カード（3メモ欄）</option><option value="command-handoff">司令塔引き継ぎカード</option></select>
+        <div id="handoff-theme-field" hidden><label for="note-handoff-theme">司令塔カードの装飾</label><select id="note-handoff-theme"><option value="gold">黄金</option><option value="rainbow">虹色</option><option value="meritocracia">メリトクラシア（紺・金の紋章）</option></select><p class="queue-help">見た目とカード種別を設定します。Gate解除や本人受入の記録とは別です。</p></div>
+        <label for="note-priority">優先度 <span class="optional">1が最優先・10が最後</span></label>
+        <select id="note-priority"><option value="">未設定（5相当）</option><option value="1">1 · 最優先</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 · 標準</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10 · 最後</option></select>
+        <label for="note-memo">メモ <span class="optional">任意</span></label>
+        <textarea id="note-memo" name="memo" rows="6" maxlength="4000" placeholder="くわしい内容…"></textarea>
+        <div id="minutes-form-field" hidden><label for="note-minutes-memo">議事録メモ <span class="optional">任意</span></label><textarea id="note-minutes-memo" name="minutesMemo" rows="6" maxlength="4000" placeholder="採用案・承認／保留・未決事項・議事録URL…"></textarea></div>
+        <label for="note-completion-memo">完了メモ <span class="optional">任意</span></label>
+        <textarea id="note-completion-memo" name="completionMemo" rows="4" maxlength="4000" placeholder="完了した内容・確認結果・証跡など…"></textarea>
+        <label for="note-date">日付 <span class="optional">任意</span></label>
+        <input id="note-date" name="date" type="date">
+        <p id="rule-form-hint" class="rule-form-hint" hidden>運用ルールは専用一覧に保存され、ボードの列には表示されません。</p>
+        <p id="maintenance-form-hint" class="rule-form-hint" hidden>定期メンテナンスの常設枠です。確認内容・実施日・結果はメモと完了メモに記録できます。</p>
+        <label for="note-column">場所（列）</label>
+        <select id="note-column" name="column">
+          <option value="Now">Now（いまやる）</option><option value="Next">Next（つぎにやる）</option><option value="Later">Later（あとでやる）</option><option value="Hold">Hold（いったん保留）</option><option value="Done">Done（完了）</option>
+        </select>
+        <fieldset class="colors"><legend>色</legend>
+          <label class="swatch yellow"><input type="radio" name="color" value="yellow" checked><span>黄色</span></label>
+          <label class="swatch pink"><input type="radio" name="color" value="pink"><span>ピンク</span></label>
+          <label class="swatch blue"><input type="radio" name="color" value="blue"><span>青</span></label>
+          <label class="swatch green"><input type="radio" name="color" value="green"><span>緑</span></label>
+          <label class="swatch white"><input type="radio" name="color" value="white"><span>白</span></label>
+          <label class="swatch navy" title="ネイビー"><input type="radio" name="color" value="navy"><span>ネイビー</span></label>
+          <label class="swatch charcoal" title="チャコール"><input type="radio" name="color" value="charcoal"><span>チャコール</span></label>
+          <label class="swatch burgundy" title="ワインレッド"><input type="radio" name="color" value="burgundy"><span>ワインレッド</span></label>
+          <label class="swatch forest" title="深緑"><input type="radio" name="color" value="forest"><span>深緑</span></label>
+          <label class="swatch purple" title="ダークパープル"><input type="radio" name="color" value="purple"><span>ダークパープル</span></label>
+          <label class="swatch teal" title="ダークティール"><input type="radio" name="color" value="teal"><span>ダークティール</span></label>
+        </fieldset>
+        <p class="form-error" id="form-error" role="alert"></p>
+        <button class="primary form-save" id="save-note" type="submit">追加する</button>
+        <div class="edit-actions" id="edit-actions" hidden><button id="cancel-edit" type="button">編集をやめる</button><button class="danger" id="delete-note" type="button">削除</button></div>
+      </form>
+    </aside>
+  </main>
+  <footer class="help">
+    <div><h2>💡 使い方</h2><p>「＋ 新しい付箋」から追加。付箋を選ぶと右側に詳細を表示します。「編集」から変更できます。</p><p>ドラッグして列を移動。スマホでは編集画面の「場所（列）」でも移動できます。</p></div>
+    <div><h2>列の意味</h2><p><b>Now</b> いまやる　 <b>Next</b> つぎにやる　 <b>Later</b> あとでやる</p><p><b>Hold</b> いったん保留　 <b>Done</b> 完了</p></div>
+    <p class="local-hint">変更はこのデモのブラウザ内に保存します。JSON保存で持ち出せます。外部同期なし。</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Storyboard Viewer</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="../shared/demo.css">
+    <link rel="stylesheet" href="./sheet.css">
+    <link rel="stylesheet" href="../background_progress/style.css">
+  </head>
+  <body class="story-demo">
+    <main class="app-shell"><section class="demo-intro"><a href="../index.html">← 3つの制作デモ</a><p class="eyebrow">CREATIVE PRODUCTION TOOLS / 合成データ</p><h1>場面の意図を、順番ごと共有する。</h1><p>絵コンテの指示と画像を並べ、背景の準備状況も同じ場所で確認。描画ツールではありません。</p><div class="demo-steps"><b>1. 指示を1文変える</b><b>2. コマ順／背景の状態を確認</b><b>3. JSON・HTMLで持ち出す</b></div><p>入力はこのデモ内で扱います。背景はブラウザ内保存、絵コンテはJSON保存。実機スマホの本人受入は未確認です。</p><button id="demo-story-sample">絵コンテの合成例に戻す</button><button id="demo-bg-json">背景JSONを書出し</button></section>
+      <header class="mode-header no-print">
+        <div class="mode-switch" role="tablist" aria-label="ビュー切替">
+          <button id="storyboardModeButton" type="button" aria-pressed="true">絵コンテモード</button>
+          <button id="backgroundProgressModeButton" type="button" aria-pressed="false">背景進行モード</button>
+        </div>
+      </header>
+
+      <section id="storyboardMode">
+      <section id="editorView">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">制作支援 / 発注前確認</p>
+          <h1>🎬 絵コンテ Viewer</h1>
+          <p>画像と指示を並べて、順番を編集し発注資料を出力します。</p>
+        </div>
+        <div class="toolbar no-print">
+          <button id="saveJsonButton" type="button">JSONを保存</button>
+          <div id="jsonDropZone" class="json-drop-zone" tabindex="0" role="button" aria-label="JSONファイルをここへドロップ、またはJSONを読込">
+            <span>JSONファイルをここへドロップ</span>
+            <span class="json-drop-divider">または</span>
+            <label class="button-label">JSONを読込<input id="loadJsonInput" type="file" accept="application/json,.json"></label>
+          </div>
+          <button id="exportHtmlButton" type="button">確認用HTMLを書出し</button>
+          <button id="printButton" type="button">印刷</button>
+          <button id="sheetViewButton" type="button">絵コンテシート</button>
+          <button id="resetButton" class="danger" type="button">初期化</button>
+        </div>
+      </header>
+      <p id="statusMessage" class="status-message" role="status" aria-live="polite"></p>
+
+      <section class="scene-card">
+        <h2>シーン基本情報</h2>
+        <div class="scene-grid">
+          <label>シーン名<input data-scene-field="name" type="text" placeholder="例：街から灯台へ"></label>
+          <label>エピソード／参照<input data-scene-field="episode" type="text" placeholder="例：架空作品 第1章"></label>
+          <label>使用目的<input data-scene-field="purpose" type="text" placeholder="例：SDスチル発注用"></label>
+          <label>スチル区分<select data-scene-field="still_type"><option value="sd">SDスチル</option><option value="normal">通常スチル</option></select></label>
+          <label>想定画像サイズ<input data-scene-field="canvas_size" type="text" placeholder="例：1280×720"></label>
+          <label>縦横比<input data-scene-field="aspect_ratio" type="text" placeholder="例：16:9"></label>
+          <label class="wide">シーン全体の補足<textarea data-scene-field="notes" rows="3" placeholder="前後関係、使用タイミング、発注意図など"></textarea></label>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <div class="section-heading">
+          <div><h2>連続コマ</h2><p id="panelCount">0コマ</p></div>
+          <div class="toolbar no-print"><button id="eightPanelButton" type="button">8コマ雛形を追加</button><button id="addPanelButton" type="button">＋ コマを追加</button></div>
+        </div>
+        <div id="panelList" class="panel-list"></div>
+      </section>
+      </section>
+
+      <section id="sheetView" class="sheet-view" hidden aria-label="絵コンテシートビュー">
+        <header class="sheet-header">
+          <div>
+            <p class="eyebrow">発注資料 / 閲覧・印刷専用</p>
+            <h1>🎬 絵コンテシート</h1>
+            <p>編集中の同じJSONを、全コマを一覧できる発注資料レイアウトで表示します。</p>
+          </div>
+          <div class="toolbar no-print">
+            <button id="sheetPrintButton" type="button">シートを印刷</button>
+            <button id="editorViewButton" type="button">編集画面へ戻る</button>
+          </div>
+        </header>
+        <section id="sheetSceneInfo" class="sheet-scene-info"></section>
+        <div id="sheetPanelList" class="sheet-panel-list"></div>
+      </section>
+      </section>
+      <section id="backgroundProgressMode" class="bg-shell" hidden aria-label="背景進行モード">
+        <header class="app-header">
+          <div>
+            <p class="eyebrow">制作支援 / 背景進行表</p>
+            <h1>🖼 背景進行モード</h1>
+            <p>日付単位の背景進行表を、一覧・編集・保存・HTML出力できます。</p>
+          </div>
+          <div class="toolbar no-print">
+            <button id="bgReloadButton" type="button">一覧更新</button>
+            <button id="bgNewTableButton" type="button">新規背景進行表を作成</button>
+            <label class="button-label">JSONを読込<input id="bgLoadJsonInput" type="file" accept="application/json,.json"></label>
+            <button id="bgSaveButton" data-action="save" type="button">ブラウザに保存</button>
+            <button id="bgExportHtmlButton" data-action="download-html" type="button">HTML書き出し</button>
+            <button id="bgOpenHtmlButton" data-action="open-html" type="button">HTMLを開く</button>
+            <button id="bgClearButton" data-action="clear" class="danger" type="button">空にする</button>
+          </div>
+        </header>
+        <p id="bgStatusMessage" class="status-message bg-status" role="status" aria-live="polite"></p>
+        <div class="bg-layout">
+          <aside class="bg-sidebar">
+            <h2>保存済み背景進行表一覧</h2>
+            <div id="bgTableList" class="bg-table-list"></div>
+          </aside>
+          <section class="bg-editor">
+            <h2>背景進行表編集</h2>
+            <div class="bg-recovery" style="margin-top:0; margin-bottom:0.75rem;">
+              <strong>新しい背景進行表を作成</strong>
+              <div class="bg-meta-grid" style="margin-top:0;">
+                <label>
+                  日付
+                  <input id="bgCreateDate" type="date">
+                </label>
+                <label class="wide">
+                  タイトル
+                  <input id="bgCreateTitle" type="text" placeholder="例：2026-07-21_001 背景進行表">
+                </label>
+              </div>
+              <div class="toolbar no-print">
+                <button id="bgCreateButton" type="button">この日付で新規作成</button>
+              </div>
+            </div>
+            <div class="bg-toolbar no-print">
+              <button id="bgAddRowButton" data-action="add-row" type="button">＋ 行を追加</button>
+              <button data-action="new" type="button">新規ドラフトを作成</button>
+            </div>
+            <div class="bg-meta-grid">
+              <label>
+                表ID
+                <input id="bgTableId" type="text" readonly>
+              </label>
+              <label>
+                日付
+                <input id="bgTableDate" type="date">
+              </label>
+              <label>
+                タイトル
+                <input id="bgTableTitle" data-bg-meta-field="title" type="text" placeholder="例：2026-07-21_001 背景進行表">
+              </label>
+              <label>
+                作成日時
+                <input id="bgCreatedAt" type="text" readonly>
+              </label>
+              <label>
+                更新日時
+                <input id="bgUpdatedAt" type="text" readonly>
+              </label>
+              <label>
+                行数
+                <input id="bgRowCount" type="text" readonly>
+              </label>
+            </div>
+            <section id="bgRecovery" class="bg-recovery" hidden>
+              <strong>background_progress.json がありません。</strong>
+              <p id="bgRecoveryMessage"></p>
+              <label>
+                復旧時のタイトル
+                <input id="bgRecoveryTitle" data-recovery-title type="text" placeholder="空の背景進行表">
+              </label>
+              <div class="toolbar no-print">
+                <button id="bgRecoveryOpenButton" data-action="recover" type="button">復旧して開く</button>
+                <button id="bgRecoveryCancelButton" data-action="recover-cancel" type="button">キャンセル</button>
+              </div>
+            </section>
+            <p id="bgHtmlStatus" class="status-message" role="status" aria-live="polite"></p>
+            <p class="no-print"><a id="bgPreviewLink" hidden href="#">保存済みHTMLを開く</a></p>
+            <div id="bgEmptyState" class="bg-empty">背景進行表を選ぶか、新規ドラフトを作成してください。</div>
+            <div id="bgRowList" class="bg-row-list"></div>
+          </section>
+        </div>
+      </section>
+
+    </main>
+
+    <template id="panelTemplate">
+      <article class="panel-card">
+        <header class="panel-header">
+          <h3>コマ <span class="panel-index"></span></h3>
+          <div class="panel-actions no-print"><button data-action="move-up" type="button">↑ 上へ</button><button data-action="move-down" type="button">↓ 下へ</button><button data-action="delete" class="danger" type="button">コマを削除</button></div>
+        </header>
+        <div class="storyboard-pane">
+          <section class="visual-pane">
+            <div class="visual-stage">
+              <img class="background-preview" alt="背景ラフは未選択です" hidden>
+              <img class="image-preview" alt="絵コンテ画像は未選択です" hidden>
+              <p class="image-placeholder">絵コンテ画像は未選択です。右側の指示だけでもコマを作成できます。</p>
+            </div>
+            <div class="image-controls no-print">
+              <div class="image-drop-zone" data-drop-kind="image" tabindex="0">
+                <strong>絵コンテ画像</strong>
+                <span>PNG / JPG をここへドロップ</span>
+                <label class="drop-zone-browse">参照<input data-action="image" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg"></label>
+              </div>
+              <p class="image-name"></p>
+              <div class="image-drop-zone" data-drop-kind="background" tabindex="0">
+                <strong>背景ラフ画像</strong>
+                <span>PNG / JPG をここへドロップ</span>
+                <label class="drop-zone-browse">参照<input data-action="background" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg"></label>
+              </div>
+              <button data-action="delete-background" class="danger" type="button">背景ラフ画像を削除</button>
+              <label class="toggle"><input data-panel-field="background_visible" type="checkbox"> 背景ラフを表示</label>
+              <p class="background-name"></p>
+            </div>
+          </section>
+          <section class="detail-pane">
+            <label>コマ番号<input data-panel-field="number" type="number" min="1" step="1"></label>
+            <label>シナリオ本文<textarea data-panel-field="scenario" rows="5" placeholder="このコマで扱う本文・状況"></textarea></label>
+            <label>演出意図<textarea data-panel-field="direction" rows="3" placeholder="感情、テンポ、SD表現の方向性"></textarea></label>
+            <label>カメラ・構図メモ<textarea data-panel-field="camera" rows="3" placeholder="画角、視点、画面内の見せ方"></textarea></label>
+            <label>キャラクター配置メモ<textarea data-panel-field="characters" rows="3" placeholder="左右、距離、向き、表情・ポーズ"></textarea></label>
+            <label>備考<textarea data-panel-field="memo" rows="3" placeholder="小物、作画注意、修正優先度"></textarea></label>
+          </section>
+        </div>
+      </article>
+    </template>
+    <template id="bgRowTemplate">
+      <article class="bg-row-card">
+        <div class="bg-row-head">
+          <strong>行 <span data-row-number></span></strong>
+          <div class="bg-row-actions no-print">
+            <button type="button" data-action="row-up">↑ 上へ</button>
+            <button type="button" data-action="row-down">↓ 下へ</button>
+            <button type="button" data-action="row-delete" class="danger">削除</button>
+          </div>
+        </div>
+        <div class="bg-row-grid">
+          <label>
+            シーン名
+            <input data-row-field="scene_name" type="text">
+          </label>
+          <label>
+            背景名
+            <input data-row-field="background_name" type="text">
+          </label>
+          <label>
+            用途
+            <input data-row-field="purpose" type="text">
+          </label>
+          <label>
+            時間帯
+            <input data-row-field="time_of_day" type="text">
+          </label>
+          <label>
+            優先度
+            <select data-row-field="priority"></select>
+          </label>
+          <label>
+            ステータス
+            <select data-row-field="status"></select>
+          </label>
+          <label class="wide">
+            メモ
+            <textarea data-row-field="memo" rows="3"></textarea>
+          </label>
+          <label class="wide bg-row-image">
+            画像（任意）
+            <input data-row-file type="file" accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp">
+            <input data-row-field="source_file_name" type="text" placeholder="元ファイル名">
+          </label>
+          <div class="wide bg-row-preview" data-row-preview></div>
+        </div>
+      </article>
+    </template>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

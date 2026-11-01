@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Operation Deck｜Portfolio Demo</title>
+<style>
+:root{color-scheme:dark;--bg:#07121b;--panel:#101f2a;--line:#29404e;--text:#ebf3f7;--muted:#9bb0bc;--cyan:#38e5df;--amber:#efbe64}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#12303e 0,transparent 48%),var(--bg);color:var(--text);font:15px/1.65 system-ui,"Noto Sans",sans-serif}button,input,select,textarea{font:inherit}button,a,input,select{touch-action:manipulation}button{cursor:pointer;color:inherit;background:#152a37;border:1px solid var(--line);border-radius:9px;padding:9px 14px}button:hover{border-color:var(--cyan)}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}button:disabled{opacity:.5;cursor:wait}a{color:var(--cyan);overflow-wrap:anywhere}header{display:flex;justify-content:space-between;gap:16px;padding:24px 32px;align-items:center;border-bottom:1px solid var(--line)}h1{font-size:27px;letter-spacing:.03em;margin:0}h2{font-size:25px;margin:0 0 8px}h3{margin:0;font-size:18px}p{margin:6px 0 14px}.muted,small{color:var(--muted)}.eyebrow{letter-spacing:.15em;font-size:11px;color:var(--cyan);text-transform:uppercase}.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.pill{display:inline-block;border:1px solid var(--line);padding:3px 10px;border-radius:20px;font-size:12px}.demo{color:var(--amber);border-color:#796440}.live{color:var(--cyan)}nav{padding:16px 32px;display:flex;gap:8px;border-bottom:1px solid var(--line)}nav button{flex:1;text-align:left;min-width:0}nav button[aria-pressed=true]{color:var(--cyan);border-color:var(--cyan);background:#123c45;box-shadow:inset 0 -3px var(--cyan)}nav span{display:block;font-size:12px;color:var(--muted)}main{max-width:1600px;margin:auto;padding:24px 32px}.source{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:#0c1b25;border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:22px}.source p{margin:0}.source .meta{font-size:12px;overflow-wrap:anywhere;flex:1;min-width:180px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.toolbar input{flex:1;min-width:160px}.toolbar input,.toolbar select,textarea{color:var(--text);background:#0b1923;border:1px solid var(--line);padding:10px;border-radius:8px}.layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(300px,1fr);gap:22px;align-items:start}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.card{--accent:#53afef;min-height:199px;position:relative;border-radius:12px;text-align:left;padding:20px 14px 12px;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 13%,#12202a),#0a1722);border:1px solid color-mix(in srgb,var(--accent) 40%,#253843);display:flex;flex-direction:column;gap:9px;transition:transform .15s}.card:hover{transform:translateY(-3px)}.card[aria-pressed=true]{border:2px solid var(--accent);box-shadow:0 0 22px color-mix(in srgb,var(--accent) 16%,transparent)}.card .icon{font-size:25px;color:var(--accent)}.card strong{font-size:18px}.card small{font-size:12px}.card .counts{margin-top:auto;font-size:12px;color:#c7d8e0}.card .cta{border-top:1px solid var(--line);padding-top:8px;font-size:12px;color:var(--accent)}.panel{border:1px solid var(--line);border-radius:13px;background:linear-gradient(140deg,#122732,#0b1821);padding:22px;min-width:0}.panel dt{font-size:12px;color:var(--muted);margin-top:12px}.panel dd{margin:2px 0;overflow-wrap:anywhere}.prompt{width:100%;resize:vertical;min-height:154px;font-size:13px;margin:12px 0}.primary{background:var(--cyan);color:#08282d;border-color:var(--cyan);font-weight:700}.wide{width:100%}.notice{font-size:12px;color:var(--amber)}.tasklist{margin-top:22px}.task{border:1px solid var(--line);border-radius:10px;padding:14px;margin:9px 0;background:#0c1c27;overflow-wrap:anywhere}.task button{padding:2px 8px;font-size:12px}.task.selected{border-color:var(--cyan)}.task-title{display:flex;gap:10px;align-items:start;justify-content:space-between}.task-title strong{font-size:14px}.task-id{font-size:11px;color:var(--muted);overflow-wrap:anywhere}.tags{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}.tags span{font-size:11px;border:1px solid var(--line);border-radius:5px;padding:1px 6px}.tags .wait{color:var(--amber)}details summary{cursor:pointer;color:var(--muted);font-size:12px}.memo{white-space:pre-wrap;font-size:12px;max-height:240px;overflow:auto;margin-top:8px}.chain{margin-top:24px;border:1px solid var(--line);padding:20px;border-radius:12px;background:#0c1c26}.steps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:15px}.step{padding:13px;border:1px solid var(--line);border-radius:9px;font-size:13px;position:relative}.step:not(:last-child):after{content:"›";position:absolute;right:-10px;top:25%;color:var(--muted)}.step.done{border-color:#268c91;color:#6ee5df}.step.current{border-color:var(--amber);color:var(--amber)}.links{display:grid;gap:8px;margin-top:12px}.linkrow{border-left:2px solid var(--line);padding:8px 12px;background:#10222e;overflow-wrap:anywhere}.empty{padding:28px;border:1px dashed var(--line);border-radius:10px;color:var(--muted)}.hidden{display:none!important}.phasebox{margin:18px 0;padding:16px;border-left:3px solid var(--cyan);background:#102630}.phasebox ul{margin-bottom:0}.toast{min-height:24px;margin-top:8px;color:var(--cyan);font-size:12px}footer{padding:24px 32px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:28px}.limit{margin:12px 0;color:var(--muted);font-size:12px}.bad{color:#ffadad}
+@media(max-width:1180px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr)}}
+@media(max-width:740px){header{padding:18px;display:block}header .actions{margin-top:12px}h1{font-size:23px}main{padding:18px}nav{padding:10px;overflow-x:auto}nav button{min-width:110px;padding:8px;font-size:13px}nav span{font-size:11px}.layout{grid-template-columns:1fr}.panel{padding:18px}.card{min-height:166px;padding:15px 11px}.card strong{font-size:16px}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.step:not(:last-child):after{display:none}footer{padding:18px}.source{align-items:start}.toolbar{gap:8px}}
+.shared-entries{max-width:1440px;margin:0 auto;padding:22px 28px 32px;scroll-margin-top:12px}.shared-entries h2{margin:0}.shared-entries>.muted{font-size:13px}.shared-groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.shared-group{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:12px;min-width:0}.shared-group summary{cursor:pointer;font-weight:700;min-height:30px}.shared-group ul{list-style:none;padding:0;margin:6px 0}.shared-group li{padding:9px 0;border-top:1px solid var(--line)}.shared-group a{display:block;overflow-wrap:anywhere}.shared-group small{display:block;color:var(--muted);font-size:12px;line-height:1.6;margin-top:5px}.shared-return{display:inline-block;margin-top:14px;font-size:13px}@media(max-width:740px){.shared-entries{padding:18px}.shared-groups{grid-template-columns:1fr 1fr}}@media(max-width:420px){.shared-groups{grid-template-columns:1fr}}
+
+/* Workflow Set 01: intentionally separate from the reservation/task database. */
+.wf-panel{border:1px solid #346576;background:linear-gradient(135deg,#102c39,#091b26);border-radius:15px;padding:20px;margin:0 0 22px}
+.wf-top{display:flex;justify-content:space-between;align-items:start;gap:16px}
+.wf-top h2{font-size:22px;margin:2px 0 6px}.wf-top p{font-size:13px;margin:0 0 14px}
+.wf-top button{flex-shrink:0}.wf-readout{border-left:3px solid #e9b661;background:#1e2b32;padding:10px 13px;border-radius:4px;color:#e9d6b4;font-size:13px;overflow-wrap:anywhere}
+.wf-flow{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;padding:0;margin:18px 0 20px;counter-reset:wf}
+.wf-flow li{min-width:0;position:relative}
+.wf-flow li:not(:last-child)::after{content:"›";position:absolute;right:-12px;top:42%;color:#93afbd;font-size:21px;z-index:1}
+.wf-stage{height:100%;width:100%;display:flex;flex-direction:column;align-items:start;gap:7px;border:1px solid #31505d;background:#10232e;padding:14px 11px;text-align:left;min-height:137px}
+.wf-stage[aria-current="step"]{border:2px solid #38e5df;box-shadow:0 0 0 2px #38e5df20;background:#173844}
+.wf-stage .wf-number{color:#38e5df;font-size:12px;font-weight:700}
+.wf-stage .wf-name{font-size:14px;line-height:1.4;font-weight:700}
+.wf-stage .wf-state{font-size:12px;color:#b5c8d2;margin-top:auto}.wf-stage[data-status=confirmed] .wf-state{color:#6fe4c1}.wf-stage[data-status=skipped] .wf-state{color:#b9aecb}
+.wf-detail{border:1px solid #31505d;border-radius:12px;background:#0b1e29;padding:16px}
+.wf-detail-title{display:flex;gap:10px;justify-content:space-between;align-items:start}.wf-detail-title h3{font-size:17px}
+.wf-evidence{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;color:#d7e3ea;border-radius:7px;padding:9px 12px;background:#142d37}
+.wf-actions{margin:12px 0}.wf-prompt-label{font-size:13px;display:block}
+.wf-detail textarea{min-height:118px;margin:6px 0 10px}
+.wf-caution{font-size:12px;color:#afc0cb;line-height:1.7;margin-bottom:0}
+.wf-message{font-size:12px;color:#eec37b;min-height:21px;margin-top:8px}
+@media(max-width:950px){.wf-flow{grid-template-columns:repeat(3,minmax(0,1fr))}.wf-flow li::after{display:none}}
+@media(max-width:600px){.wf-panel{padding:13px}.wf-top{display:block}.wf-top button{margin:10px 0}.wf-flow{grid-template-columns:1fr;gap:7px}.wf-stage{min-height:unset;flex-direction:row;align-items:center;padding:11px 13px;gap:9px}.wf-stage .wf-number{flex:0 0 40px}.wf-stage .wf-state{margin:0 0 0 auto;flex:0 0 auto}.wf-detail{padding:12px}.wf-actions button{flex:1 1 135px}}
+</style></head><body>
+<header><div><div class="eyebrow">PORTFOLIO DEMO · SYNTHETIC DATA · OFFLINE FIRST</div><h1>AI Operation Deck</h1><div class="muted">フェイズデッキ ─ 次の一手を、見える形に。</div></div><div class="actions"><a href="#sharedEntries">共通ツール ↓</a><span id="badge" class="pill demo">デモ表示</span><a href="README.md">使い方・設計 ↗</a></div></header>
+<nav id="phases" aria-label="フェイズ選択"></nav>
+<main>
+<section class="source" aria-label="情報の出典"><div class="actions"><button id="connect" hidden>外部接続なし</button><button id="demo">デモに戻す</button><button id="importBtn">JSONを読み込む</button><input id="file" type="file" accept=".json,application/json" hidden></div><p id="source" class="meta" role="status" aria-live="polite"></p></section>
+
+<section id="workflowSet" class="wf-panel" aria-labelledby="wfTitle">
+  <div class="wf-top">
+    <div><span class="eyebrow">WORKFLOW · PROVISIONAL R01 / LOCAL ONLY</span><h2 id="wfTitle">標準ワークフロー｜通常制作</h2><p class="muted">点検 → 不満の吐き出し → 制作会議 → 予約選定 → 引き継ぎ。予約ロットと工程メモは別管理です。</p></div>
+    <button id="wfToggle" type="button" aria-expanded="true" aria-controls="wfContent">工程を折りたたむ</button>
+  </div>
+  <div id="wfContent">
+    <div id="wfReadout" class="wf-readout" role="status">点検シミュレーション：ワークハブ未取得。READで照合してください。</div>
+    <ol id="wfFlow" class="wf-flow" aria-label="標準ワークフローの工程"></ol>
+    <section class="wf-detail" aria-label="選択中の工程">
+      <div class="wf-detail-title"><h3 id="wfStepTitle">Phase 1｜復元と点検</h3><span id="wfStepState" class="pill">未着手</span></div>
+      <p id="wfStepDesc" class="muted"></p><p id="wfStepEvidence" class="wf-evidence"></p>
+      <div class="actions wf-actions">
+        <button id="wfConfirm" class="primary" type="button">手動で確認済みにする</button>
+        <button id="wfSkip" type="button">今回スキップ</button>
+        <button id="wfPause" type="button">一時中断</button>
+        <button id="wfNext" type="button">次の工程へ</button>
+      </div>
+      <label for="wfPrompt" class="muted wf-prompt-label">ChatGPT用の進行プロンプト</label>
+      <textarea id="wfPrompt" class="prompt" readonly></textarea>
+      <div class="actions"><button id="wfCopy" type="button">プロンプトをコピー</button><button id="wfJournal" type="button">今回のターン・作業メモを開く</button><button id="wfReset" type="button">このワークフロー記録をリロット</button></div>
+      <div id="wfMessage" class="wf-message" role="status" aria-live="polite"></div>
+    </section>
+    <p class="wf-caution">進行状態はこのブラウザ内の手動記録です。データ読取は点検・会議・Human受入・Git/メール照合の完了を意味しません。予約登録・カード変更・END・本番切替は行いません。端末間自動同期はありません。</p>
+  </div>
+</section>
+
+<div id="phasebox" class="phasebox hidden"></div>
+<div class="eyebrow" id="phaseLabel">02 / DRAW PHASE</div><h2 id="heading">次の一手を選ぶ</h2><p id="lead" class="muted">作業の入口を選び、元カードを確認して次へ。</p>
+<div class="toolbar"><input id="search" type="search" placeholder="タイトル・カードIDで絞り込み" aria-label="タイトル・カードIDで絞り込み"><select id="filter" aria-label="候補の表示範囲"><option value="active">未完了の候補</option><option value="queued">予約待機のみ</option><option value="blocked">保留・確認待ち</option><option value="reserve">大型の控え</option><option value="all">履歴も含める</option></select><select id="device" aria-label="今回の端末"><option value="未確認">端末：未指定</option><option value="PC">端末：PC</option><option value="スマホ">端末：スマホ</option></select></div>
+<div class="layout"><section><div id="cards" class="cards" aria-label="作業の入口"></div><p id="population" class="limit"></p><button id="allCards">分類外も含めて全候補を見る</button><div class="tasklist"><h3 id="listTitle">Work予約の候補</h3><p id="listNote" class="limit"></p><div id="tasks"></div><button id="more" class="hidden">さらに20件表示</button></div></section>
+<aside class="panel" aria-labelledby="detailTitle"><div class="eyebrow">Selected entry</div><h2 id="detailTitle">Work予約</h2><p id="detailDesc" class="muted"></p><dl><dt>担当の目安</dt><dd id="owner"></dd><dt>選択したカード</dt><dd id="selected"></dd><dt>実行前の確認</dt><dd>元カードの最新詳細・許可範囲・依存・使用端末を確認。予約待機は実行可能の証明ではありません。</dd></dl><label for="prompt" class="muted">今回の起動プロンプト</label><textarea id="prompt" class="prompt" readonly></textarea><button id="copy" class="primary wide">プロンプトをコピー</button><div id="toast" class="toast" role="status" aria-live="polite"></div><small>コピーとフェイズ選択では、作業は開始されません。</small></aside></div>
+<section class="chain"><div class="actions"><h3>チェインをたどる</h3><span id="chainBadge" class="pill demo">表示例</span></div><div id="chainBody"></div></section>
+</main>
+<section id="sharedEntries" class="shared-entries"><h2>このデモで試せること</h2><p class="muted">合成サンプルを使った操作体験です。外部API・AI実行・実サービスへの接続はありません。</p><div class="shared-groups"><div class="shared-group"><h3>1. 分類と検索</h3><p>8つの入口から候補を選び、予約・保留・控えを区別します。</p></div><div class="shared-group"><h3>2. 次の一手</h3><p>元カードを選択し、範囲を明示した依頼文をコピーできます。</p></div><div class="shared-group"><h3>3. 手動作業メモ</h3><p>工程の確認と自由メモをブラウザ内へ保存し、JSONで持ち出せます。</p></div><div class="shared-group"><h3>4. 設計と制約</h3><p><a href="README.md">README</a> / <a href="docs/DESIGN.md">設計</a> / <a href="docs/VALIDATION.md">検証</a></p></div></div></section><footer>AIワークハブ＝詳細情報の基盤 ／ デッキ＝人間向けの操作盤 ／ 司令塔＝判断と進行の担当。<br>ポートフォリオ用の合成データです。外部通信・予約実行・本人確認の解除は行いません。フェイズ03以降は仮設計。ENDはセッションの保全工程です。</footer>
+<script>
+"use strict";
+const CATEGORIES=[
+{id:"game",icon:"♜",title:"ゲーム実装",sub:"Codex予約",owner:"Codex",color:"#65baff",desc:"開発・実装・テストの入口。担当と実際の着手状態は元カードを優先。"},
+{id:"maintenance",icon:"⚒",title:"定期メンテ",sub:"点検・保全",owner:"Work",color:"#edbd69",desc:"点検・保全・定期運用。時刻や実施周期は元カードを確認。"},
+{id:"work",icon:"▤",title:"Work予約",sub:"管理・調査",owner:"Work",color:"#38e5df",desc:"Work担当の予約候補。控えと保留は通常の待機から分けます。"},
+{id:"handoff",icon:"⇄",title:"引き継ぎ",sub:"未反映・残件",owner:"Work / ChatGPT",color:"#bd9fea",desc:"引き継ぎカードとPacket関連の入口。未反映かどうかは本文を確認。"},
+{id:"meeting",icon:"♧",title:"制作会議",sub:"仕様を決める",owner:"ChatGPT / 本人",color:"#f18d9b",desc:"相談・会議・仕様裁定。会議Doneとゲーム実装済みを分けます。"},
+{id:"human",icon:"◎",title:"本人確認",sub:"判断・画面確認",owner:"本人 / 司令塔",color:"#72d6a9",desc:"明示された確認メタデータと保留ロットを入口にします。保留の全件が本人判断とは限りません。"},
+{id:"research",icon:"⌕",title:"調査・設計",sub:"調べて整理",owner:"元カードを確認",color:"#77bcec",desc:"技術調査・設計レビュー。タイトルによる分類候補です。"},
+{id:"ops",icon:"▥",title:"OPS改善",sub:"運用を整える",owner:"Work / Codex",color:"#dca45c",desc:"管理ツール・Git・END・運用改善。タイトルによる分類候補です。"}
+];
+const PHASES=[
+{label:"復元",sub:"状況を読み出す",title:"状況を読み出す",text:"ワークハブまたは開始Packetを確認し、取得できた範囲を整理します。",prompt:"AIワークハブにアクセスして状況確認し、司令塔モードを起動してください。前回引き継ぎと先頭候補だけを確認し、全件監査はしないでください。読める範囲と許可範囲を区別し、取得不能は未確認としてください。"},
+{label:"ドロー",sub:"次の一手を選ぶ",title:"次の一手を選ぶ",text:"作業の入口を選び、元カードを確認して次へ。"},
+{label:"メイン",sub:"作業を進める・仮",title:"選んだ作業を進める",text:"担当・許可範囲・依存を確認してから実行を依頼します。",prompt:"選択カードの最新詳細と既存成果を確認し、既存承認の範囲で作業を進めてください。Human Gateは理由と再開条件を記録し該当箇所をスキップ。後続が依存で進めなければ停止してください。他ロットへ拡張しないでください。"},
+{label:"検証・確認",sub:"成果を確かめる・仮",title:"成果と残件を確かめる",text:"技術検証・反映・本人受入・Git保全を分けて確認します。",prompt:"選択カードの対象版と証跡を確認し、技術検証済み・反映済みの種類・本人受入済みの範囲・Git保全を別々に整理してください。報告値と独立確認を区別し、未確認は完了にしないでください。"},
+{label:"END",sub:"区切りをつける・仮",title:"区切りと保全を確認する",text:"実行対象を明示したEND依頼を用意します。画面操作だけでは保全されません。",prompt:"今回の作業範囲だけを対象に、既存のwork-end手順でEND処理を実行してください。実施済み・未実施・残件・次の再開位置を保存し、各保存先の読み戻しと保全状態を報告してください。他の予約ロットは開始しないでください。"}
+];
+const DEMO={version:1,queueSets:[{id:"default",name:"1ロット目｜Work",executor:"work"},{id:"codex",name:"Codex",executor:"codex"},{id:"hold-review",name:"保留・確認待ち",executor:"work"},{id:"reserve-demo",name:"控え｜大型案件",executor:"work"}],notes:[
+{id:"demo-work",title:"上部タブのグループ化（サンプル）",column:"Next",queueSetId:"default",queueStatus:"queued",memo:"サンプル。承認範囲と最新版を確認してから実装を依頼。関連: demo-meeting"},
+{id:"demo-meeting",title:"制作会議｜タブ分類（サンプル）",cardType:"meeting",column:"Done",memo:"サンプルの会議結果。実装担当カード demo-work。"},
+{id:"demo-game",title:"DEV｜ゲーム進行検証（サンプル）",column:"Next",queueSetId:"codex",queueStatus:"queued"},
+{id:"demo-human",title:"画面の本人確認（サンプル）",column:"Hold",queueSetId:"hold-review",queueStatus:"blocked",review:{status:"pending"}},
+{id:"demo-maint",title:"定期メンテ｜保全照合（サンプル）",column:"Next",queueSetId:"default",queueStatus:"queued"},
+{id:"demo-handoff",title:"引き継ぎ｜前回の残件（サンプル）",column:"Next",memo:"判断の反映は未確認。"},
+{id:"demo-research",title:"調査｜描画方式の設計（サンプル）",column:"Next"},
+{id:"demo-reserve",title:"控え親案件｜全体図（サンプル）",column:"Later",queueSetId:"reserve-demo",queueStatus:"blocked"},
+{id:"demo-ops",title:"OPS｜END改善（サンプル）",column:"Next"}
+]};
+let state={mode:"demo",valid:true,data:DEMO,revision:null,time:null,stale:false,error:"",duplicates:0,cat:"work",phase:1,selected:"",limit:20,sourceTime:null,revisionLabel:""};
+try{const p=JSON.parse(localStorage.getItem("portfolio-demo-deck-preferences-v1")||"{}");if(CATEGORIES.some(c=>c.id===p.cat))state.cat=p.cat;if(Number.isInteger(p.phase)&&p.phase>=0&&p.phase<5)state.phase=p.phase;}catch{}
+const $=id=>document.getElementById(id), text=(el,v)=>el.textContent=v;
+function element(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;}
+function archive(n){return !!(n.archivedAt||n.archived||n.archiveStatus==="archived");}
+function isReserve(n){const s=state.data.queueSets.find(x=>x.id===n.queueSetId);return !!s&&(/控え/.test(s.name||"")||s.id.startsWith("reserve-"));}
+function isDone(n){return n.column==="Done";}
+function unique(values){const m=new Map();for(const n of values)if(!m.has(n.id))m.set(n.id,n);return [...m.values()];}
+function setOf(n){return state.data.queueSets.find(s=>s.id===n.queueSetId);}
+function reviewMeta(n){const lines=(n.memo||"").split("\n").filter(s=>s.startsWith("[human-review:v1]"));if(!lines.length)return n.review||null;try{const m=JSON.parse(lines.at(-1).slice(17));if(!["pending","deferred","accepted","withdrawn"].includes(m.status)||!["phone","pc","unknown"].includes(m.device)||typeof m.summary!=="string"||!m.summary.trim()||!Array.isArray(m.evidence||[]))throw Error();return m}catch{return {status:"invalid",device:"unknown"}}}
+function categories(n){const t=n.title||"",a=[];const s=setOf(n);if(s?.executor==="codex"||/^(DEV|CODEX|WORK\/CODEX)[｜|]/i.test(t))a.push("game");if(/定期|メンテ|保全照合/.test(t))a.push("maintenance");if(s?.executor==="work"&&n.queueSetId!=="hold-review")a.push("work");if(/引き継ぎ|引継|Packet|移管/.test(t)||/^handoff-|^command-handoff/.test(n.id))a.push("handoff");if(n.cardType==="meeting"||/会議/.test(t))a.push("meeting");if(n.queueSetId==="hold-review"||reviewMeta(n)?.status==="pending"||reviewMeta(n)?.status==="deferred"||reviewMeta(n)?.status==="invalid"||/本人確認|表示確認|受入待ち/.test(t))a.push("human");if(/調査|設計|レビュー|検討/.test(t))a.push("research");if(/^(OPS|改修|ツール|運用ルール)[｜|]|END|Git|ワークハブ|カンバン/.test(t))a.push("ops");return a;}
+function selectedNote(){return state.data.notes.find(n=>n.id===state.selected);}
+function base(){return state.data.notes.filter(n=>!archive(n));}
+function filterRows(rows){const f=$("filter").value,q=$("search").value.trim().toLowerCase();return rows.filter(n=>{
+if(f==="active"&&(isDone(n)||isReserve(n)))return false;
+if(f==="queued"&&(n.queueStatus!=="queued"||isReserve(n)||isDone(n)))return false;
+if(f==="blocked"&&(n.queueStatus!=="blocked"&&n.column!=="Hold"&&n.review?.status!=="pending"||isReserve(n)||isDone(n)))return false;
+if(f==="reserve"&&!isReserve(n))return false;
+return !q||(n.title+" "+n.id).toLowerCase().includes(q);
+}).sort((a,b)=>((Number.isFinite(a.queueOrder)?a.queueOrder:1e8)-(Number.isFinite(b.queueOrder)?b.queueOrder:1e8))||a.title.localeCompare(b.title,"ja"));}
+function counts(rows){return {total:rows.length,queued:rows.filter(n=>n.queueStatus==="queued"&&!isReserve(n)&&!isDone(n)).length,held:rows.filter(n=>(n.queueStatus==="blocked"||n.column==="Hold")&&!isReserve(n)&&!isDone(n)).length,reserve:rows.filter(isReserve).length};}
+function prefs(){try{localStorage.setItem("portfolio-demo-deck-preferences-v1",JSON.stringify({phase:state.phase,cat:state.cat}));}catch{}}
+function status(n){if(isReserve(n))return "意図：控え";const a={queued:"予約待機",running:"着手表示・現在稼働は未確認",blocked:"保留・理由は本文",failed:"技術失敗の記録",completed:"予約の処理済み"};return a[n.queueStatus]||({Done:"ボード：Done（受入は別判定）",Hold:"保留・理由は本文",Later:"後回し表示"}[n.column]||"状態："+(n.column||"未確認"));}
+function source(){const badge=$("badge");badge.className="pill "+(state.mode==="demo"?"demo":"live");text(badge,state.mode==="demo"?"デモ表示":state.mode==="live"?"取込データ":"取込スナップショット");
+const now=state.time?new Date(state.time).toLocaleString("ja-JP",{timeZone:"Asia/Tokyo"})+" JST":"時点なし";
+text($("source"),state.error?"取得失敗：現在値は未確認。"+state.error:state.mode==="demo"?"サンプルデータです。実際の件数・承認・進行状態ではありません。":(state.mode==="live"?"最終取得：":"取込：")+now+" ／ "+state.data.notes.length+" ID ／ "+state.revisionLabel+" ／ "+(state.stale?"5分以上経過・現在値は再読が必要":"")+(state.mode==="snapshot"?"原本の取得時点はファイル内の記録を確認。":"Git・メール・個別依存・現在稼働は取得していません。")+(state.duplicates?" ／ 重複ID "+state.duplicates+" 件を除外":""));
+$("source").classList.toggle("bad",!!state.error);$("connect").disabled=state.loading||location.protocol==="file:";$("demo").disabled=!!state.loading;$("importBtn").disabled=!!state.loading;if(location.protocol==="file:")$("connect").title="単独HTMLではJSON取込かデモを使用。実データ読取は付属ローカルプレビューで利用。";
+}
+function render(){
+source();prefs();$("phases").replaceChildren();PHASES.forEach((p,i)=>{const b=element("button","",(i+1).toString().padStart(2,"0")+" "+p.label);b.type="button";b.setAttribute("aria-pressed",String(i===state.phase));b.append(element("span","",p.sub));b.onclick=()=>{state.phase=i;render()};$("phases").append(b)});
+const phase=PHASES[state.phase];text($("heading"),phase.title);text($("lead"),phase.text);text($("phaseLabel"),"0"+(state.phase+1)+" / "+["RESTORE","DRAW","MAIN","VERIFY","END"][state.phase]);
+$("phasebox").classList.toggle("hidden",state.phase===1);
+text($("phasebox"),state.phase===0?(state.mode==="demo"?"復元状態：未実施（デモ）。ワークハブの読取またはJSONを取り込んでください。":!state.valid?"復元状態：未確認（取得失敗）。再読が必要です。":"データ読取済み。前回引継ぎ・個別依存・必要資料の確認は未完。司令塔の復元完了を自動判定しません。"):"このフェイズは選択中の作業に使う案内です。選択操作では進行状態・承認・保全を変更しません。");
+$("cards").replaceChildren();const bb=base();for(const c of CATEGORIES){const rows=filterRows(bb.filter(n=>categories(n).includes(c.id))),v=counts(rows),b=element("button","card");b.type="button";b.style.setProperty("--accent",c.color);b.setAttribute("aria-pressed",String(state.cat===c.id));b.append(element("span","icon",c.icon),element("strong","",c.title),element("small","",c.sub),element("span","counts",state.valid?("候補 "+v.total+" / 予約 "+v.queued+" / 保留 "+v.held+(v.reserve?" / 控え "+v.reserve:"")):"件数：未確認"),element("span","cta","候補を見る →"));b.onclick=()=>{state.cat=c.id;state.selected="";state.limit=20;render()};$("cards").append(b)}
+const all=filterRows(bb),classified=all.filter(n=>categories(n).length),unc=all.length-classified.length;
+text($("population"),state.valid?"確認母集団：未アーカイブ "+bb.length+" ID ／ 現フィルター "+all.length+" ID ／ 分類候補に一致しない "+unc+" ID。カテゴリーは重複するため合算不可。実行可否・期限・依存待ち件数は未確認。":"取得失敗のため母集団・件数は未確認。再取得してください。");
+const c=CATEGORIES.find(c=>c.id===state.cat)||{id:"all",title:"すべての候補",desc:"分類候補に一致しないカードも含めた全体の入口です。",owner:"元カードを確認"};text($("detailTitle"),c.title);text($("detailDesc"),c.desc);text($("owner"),c.owner);text($("listTitle"),c.title+"の候補");
+const rows=state.valid?filterRows(bb.filter(n=>c.id==="all"||categories(n).includes(c.id))):[];if(!rows.some(n=>n.id===state.selected))state.selected=rows[0]?.id||"";
+text($("listNote"),"IDで重複除外。並びは予約順→タイトル順で、優先順位の裁定ではありません。"+(state.cat==="human"?" 本人判断と技術停止の区別は元カードを確認。":""));
+$("tasks").replaceChildren();if(!rows.length)$("tasks").append(element("p","empty",state.valid?"この条件の候補はありません。":"情報未確認。デモには自動で戻しません。"));
+for(const n of rows.slice(0,state.limit)){const item=element("article","task"+(n.id===state.selected?" selected":"")),top=element("div","task-title"),choose=element("button","","選択");choose.type="button";choose.setAttribute("aria-label",n.title+"を選択");choose.onclick=()=>{state.selected=n.id;render()};top.append(element("strong","",n.title),choose);item.append(top,element("div","task-id",n.id));const tags=element("div","tags");tags.append(element("span",(n.queueStatus==="blocked"?"wait":""),status(n)));if(setOf(n))tags.append(element("span","",setOf(n).name));const rm=reviewMeta(n);if(rm)tags.append(element("span",rm.status==="pending"?"wait":"","確認記録："+({pending:"本人確認待ち",deferred:"戦略的後回し",accepted:"受入記録あり・範囲は本文",withdrawn:"移管/取下げ・本文参照",invalid:"メタデータ不正"}[rm.status]||"未確認")));tags.append(element("span","","端末："+({pc:"PC必要",phone:"スマホ可"}[rm?.device]||"未確認")+" / 期限：未確認"));item.append(tags);const details=element("details"),sum=element("summary","","本文・記録を読む（原文）");details.append(sum,element("div","memo",((n.memo||"本文なし")+"\n\n"+(n.completionMemo||"")).trim()));item.append(details);$("tasks").append(item)}
+$("more").classList.toggle("hidden",rows.length<=state.limit);text($("more"),"さらに20件表示（"+Math.min(state.limit,rows.length)+"/"+rows.length+"）");
+const n=selectedNote();text($("selected"),n?n.title+" / "+n.id:"未選択");const provenance=state.mode==="demo"?"【デモの案内。実カードの承認ではありません】":state.mode==="snapshot"?"【スナップショット参照。実行前に最新再取得】":"【デッキ表示時点の参照。実行前に最新再取得】";
+const target=n?"\n対象カードID："+n.id+"\n入口："+c.title:"\n入口："+c.title+"。対象カードは未選択です。";
+$("prompt").value=provenance+"\n"+(phase.prompt||"AIワークハブの「"+c.title+"」を確認し、次の1件を案内してください。前回引継ぎと対象カードの最新詳細を読み、取得できた範囲を明記してください。候補と実行可能を区別し、今回の判断が必要なら1件ずつ案内してください。")+target+"\n今回使う端末："+$("device").value+"。\n控えは通常実行から除外。本人裁定とAI提案を分け、未確認を完了にしないでください。";
+renderChain(n);
+window.WorkflowSetModel?.refresh();
+}
+function renderChain(n){const box=$("chainBody");box.replaceChildren();if(state.mode==="demo"){text($("chainBadge"),"表示例・実状態ではありません");$("chainBadge").className="pill demo";box.append(element("p","limit","工程の見本です。クリックで実状態を変更しません。"));const steps=element("div","steps");["制作会議","本人承認","Work反映","Codex実装","検証","本人受入"].forEach((t,i)=>{const e=element("div","step "+(i<2?"done":i===2?"current":""));e.append(element("strong","",t),element("div","",i<2?"例：済":i===2?"例：未反映":"例：後続"));steps.append(e)});box.append(steps);return;}
+text($("chainBadge"),"本文中のID参照・依存は未確定");$("chainBadge").className="pill";if(!n||!state.valid){box.append(element("p","empty","対象カードを選択してください。"));return;}
+box.append(element("p","limit","以下は本文中の既存カードID参照です。工程順・依存関係・承認済みを自動推定しません。URLや名称だけでは関連付けません。"));
+const hay=(n.memo||"")+"\n"+(n.completionMemo||"");const refs=state.data.notes.filter(x=>x.id!==n.id&&hasId(hay,x.id));const incoming=state.data.notes.filter(x=>x.id!==n.id&&hasId((x.memo||"")+"\n"+(x.completionMemo||""),n.id));const out=element("div","links");
+for(const [label,list]of [["このカードから参照",refs],["このカードを参照",incoming]]){out.append(element("strong","",label+"："+list.length+" ID"));for(const x of list.slice(0,20)){const row=element("div","linkrow"),a=element("button","",x.title);a.type="button";a.onclick=()=>{state.cat=categories(x)[0]||"all";$("filter").value="all";$("search").value="";state.selected=x.id;render()};row.append(a,element("div","task-id",x.id),element("small","",status(x)));out.append(row)}if(list.length>20)out.append(element("small","","20件表示。残りは元カードから確認。"));}
+if(!refs.length&&!incoming.length)out.append(element("p","empty","既知のカードID参照なし。関連や依存がないことを証明するものではありません。"));box.append(out);
+}
+function hasId(hay,id){let p=hay.indexOf(id);while(p>=0){const before=hay[p-1]||"",after=hay[p+id.length]||"";if(!/[a-zA-Z0-9_-]/.test(before)&&!/[a-zA-Z0-9_-]/.test(after))return true;p=hay.indexOf(id,p+1)}return false;}
+function parsePayload(payload){const data=payload.data||payload;if(data.version!==1||!Array.isArray(data.notes))throw Error("対応する形式はversion:1のワークハブJSONです");if(data.notes.length>10000)throw Error("対象上限10000カードを超えています");const notes=data.notes.map(n=>{if(!n||typeof n.id!=="string"||!n.id||typeof n.title!=="string"||n.memo!==undefined&&n.memo!==null&&typeof n.memo!=="string"||n.completionMemo!==undefined&&n.completionMemo!==null&&typeof n.completionMemo!=="string")throw Error("カード形式が不正です");return {...n,memo:n.memo||"",completionMemo:n.completionMemo||""}});const ids=unique(notes);return {data:{version:1,notes:ids,queueSets:Array.isArray(data.queueSets)?data.queueSets.filter(s=>s&&typeof s.id==="string"&&typeof s.name==="string"):[]},duplicates:notes.length-ids.length,revision:typeof payload.revision==="string"?payload.revision:null};}
+function connect(){text($("toast"),"公開用デモは外部サービスに接続しません。");}
+$("connect").onclick=connect;
+$("demo").onclick=()=>{Object.assign(state,{mode:"demo",valid:true,data:DEMO,revision:null,time:null,stale:false,error:"",selected:"",duplicates:0});render()};
+$("importBtn").onclick=()=>$("file").click();
+$("file").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>5000000)throw Error("5MB以下のJSONを選択してください");const p=parsePayload(JSON.parse(await f.text()));Object.assign(state,p,{mode:"snapshot",valid:true,error:"",time:Date.now(),stale:false,revisionLabel:"参照版 "+(p.revision||"未記載"),selected:""});render();text($("toast"),"JSONを取り込みました。取込時刻は原本の取得時刻ではありません。");}catch(e){text($("toast"),"取込失敗："+e.message+"。表示中のデータは変更していません。");}finally{$("file").value=""}};
+$("copy").onclick=async()=>{try{if(!navigator.clipboard?.writeText)throw Error("manual");await navigator.clipboard.writeText($("prompt").value);text($("toast"),"コピーしました。作業は開始していません。")}catch{$("prompt").focus();$("prompt").select();text($("toast"),"自動コピーを利用できません。選択した文章をコピーしてください。")}};
+$("allCards").onclick=()=>{state.cat="all";state.selected="";state.limit=20;render()};
+$("search").oninput=()=>{state.limit=20;render()};$("filter").onchange=()=>{state.selected="";state.limit=20;render()};$("device").onchange=render;$("more").onclick=()=>{state.limit+=20;render()};
+setInterval(()=>{if(state.mode==="live"&&state.time&&Date.now()-state.time>300000&&!state.stale){state.stale=true;source()}},15000);
+window.DeckModel={categories,parsePayload,hasId,counts,archive,isReserve,reviewMeta,getSnapshot:()=>({mode:state.mode,valid:state.valid,stale:state.stale,time:state.time,notes:state.data.notes.map(n=>({title:n.title,column:n.column,queueStatus:n.queueStatus,queueSetId:n.queueSetId,archived:archive(n)}))})};render();
+</script><style>
+#turnJournal{color-scheme:dark;color:#ebf3f7;background:#0c1b28;border:1px solid #41687b;border-radius:16px;width:min(940px,calc(100vw - 24px));max-height:90vh;padding:0;box-shadow:0 24px 80px #0009}
+#turnJournal::backdrop{background:#020a12b8}
+#turnJournal .journal-head{position:sticky;top:0;background:#0c1b28;padding:18px 22px;border-bottom:1px solid #29404e;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#turnJournal .journal-head h2{margin:0;font-size:23px}
+#turnJournal .journal-body{padding:18px 22px}
+#turnJournal .journal-section{border:1px solid #29404e;background:#102332;border-radius:10px;padding:16px;margin-bottom:16px}
+#turnJournal .journal-tabs{display:flex;gap:8px;margin:12px 0}
+#turnJournal button[aria-pressed=true]{border-color:#38e5df;color:#38e5df}
+#turnJournal .phase-row{display:grid;grid-template-columns:minmax(110px,1fr) minmax(120px,1fr);align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid #29404e}
+#turnJournal .phase-row:last-child{border:0}
+#turnJournal select,#turnJournal input,#turnJournal textarea{width:100%;color:#ebf3f7;background:#0a1924;border:1px solid #355263;border-radius:7px;padding:9px;min-width:0}
+#turnJournal label{display:block;margin-bottom:8px}
+#turnJournal .journal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#turnJournal .log-entry{border-left:2px solid #38b0b4;padding:10px 0 10px 14px;margin:0 0 10px}
+#turnJournal .log-entry p{white-space:pre-wrap;overflow-wrap:anywhere;margin:4px 0}
+#turnJournal .log-title{display:flex;gap:8px;align-items:center;justify-content:space-between}
+#turnJournal .log-title button{padding:3px 10px}
+#turnJournal .carry{border-color:#917338}
+#turnJournal .carry-row{display:flex;gap:10px;align-items:start;margin:8px 0;overflow-wrap:anywhere}
+#turnJournal input[type=checkbox]{width:20px;height:20px;flex:0 0 20px}
+#turnJournal .journal-footer{border-top:1px solid #29404e;padding-top:12px}
+#turnJournal .journal-message{white-space:pre-wrap;overflow-wrap:anywhere;min-height:24px;color:#efbe64;margin:8px 0}
+#turnJournal .journal-hint{color:#9bb0bc;font-size:12px}
+#turnJournal .end-state{display:flex;gap:10px;align-items:center}
+#turnJournal .history-select{margin-bottom:14px}
+#turnJournal #journalSheet{min-height:440px;line-height:2;resize:vertical;background:repeating-linear-gradient(to bottom,#0b1b27 0,#0b1b27 31px,#263c49 32px);font-size:16px;padding:16px;tab-size:2}
+#turnJournal #journalDetails>summary{padding:10px 0;font-size:15px;color:#9ddfdd}
+#journalPrint{display:none}
+@media print{body>*{display:none!important}body>#journalPrint{display:block!important;background:white!important;color:black!important;padding:10mm}#journalPrint pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/2 sans-serif;color:black!important}#turnJournal{display:none!important}dialog::backdrop{display:none} @page{size:A4;margin:14mm}}
+@media(max-width:600px){#turnJournal .journal-body,#turnJournal .journal-head{padding:14px}#turnJournal .journal-grid{grid-template-columns:1fr}#turnJournal .actions button{flex:1}#turnJournal .phase-row{grid-template-columns:1fr 1fr}#turnJournal button{min-height:42px}#turnJournal .actions button{flex:1 1 130px;min-width:120px}}
+</style>
+<dialog id="turnJournal" aria-labelledby="journalTitle">
+<div class="journal-head"><div><h2 id="journalTitle">今回のターン</h2><small>手動点検・作業メモ</small></div><div class="actions"><span id="journalTurn" class="pill"></span><button id="journalClose" aria-label="作業メモを閉じる">閉じる ×</button></div></div>
+<div class="journal-body">
+<div id="journalSaveState" class="journal-hint" role="status" aria-live="polite"></div>
+<div id="journalMsg" class="journal-message" role="status" aria-live="polite"></div>
+<div class="journal-tabs"><button id="journalCurrentTab" aria-pressed="true">今回</button><button id="journalHistoryTab" aria-pressed="false">過去の履歴</button></div>
+<div id="journalHistoryPicker" class="hidden"><label>保存したターン<select id="journalHistorySelect" class="history-select"></select></label></div>
+<div id="journalPrevious" class="journal-hint"></div>
+<section class="journal-section" id="journalSheetSection"><h3>メモ用紙</h3><p class="journal-hint">ここに自由に書けます。下の点検表や個別登録は使わなくても構いません。</p><label for="journalSheet">今回の作業メモ</label><textarea id="journalSheet" rows="15" maxlength="20000" placeholder="自由に記録してください。テンプレートも挿入できます。"></textarea><div class="actions"><button id="journalSheetSave" class="primary">メモを保存</button><button id="journalTemplate">ひな形を挿入</button><button id="journalTextExport">テキストで書き出す</button><button id="journalPrintButton">印刷・手書き用</button></div><small id="journalSheetState"></small></section>
+<details id="journalDetails"><summary>点検表・個別履歴を開く（任意）</summary>
+<section class="journal-section"><h3>フェイズ点検</h3><div id="journalChecklist"></div><p class="journal-hint">本人が確認した状態を記録します。AIの実行・受入・保全を自動判定しません。</p></section>
+<section class="journal-section"><h3>今回の履歴 <small id="journalEntryCount"></small></h3><div id="journalEntries"></div>
+<form id="journalEntryForm">
+<h4 id="journalFormTitle">履歴を追加（手動記録）</h4>
+<div class="journal-grid"><label>フェイズ<select id="journalPhase"></select></label><label>記録<select id="journalAction"><option>メモ</option><option>確認した</option><option>選んだ</option><option>依頼した</option><option>実施結果を確認した</option><option>保留にした</option></select></label></div>
+<label>何をしたか<textarea id="journalNote" rows="2" maxlength="2000" placeholder="何をしたか、1行メモ…" required></textarea></label>
+<div class="journal-grid"><label>元カードID（任意）<input id="journalCard" maxlength="180" placeholder="カードID"></label><div class="actions"><button type="button" id="journalUseCard">選択中のカードIDを使う</button></div></div>
+<div class="actions"><button class="primary" id="journalAdd" type="submit">＋ 履歴に追加</button><button id="journalCancelEdit" type="button" class="hidden">編集をやめる</button></div>
+</form></section>
+<section class="journal-section carry"><h3>次回へ引き継ぐ</h3><div id="journalCarry"></div><form id="journalCarryForm"><label>残件メモ<input id="journalCarryNote" maxlength="1000" placeholder="例：上部タブの本人表示確認"></label><label>元カードID（任意）<input id="journalCarryCard" maxlength="180"></label><button type="submit">残件を追加</button></form></section>
+<section class="journal-section"><h3>ENDの保存結果</h3><label class="end-state"><input id="journalEnd" type="checkbox"><span>ENDの保存結果を確認した（手動）</span></label><label>確認根拠・保全先（任意）<input id="journalEndEvidence" maxlength="1000" placeholder="receiptや報告への参照"></label><small>チェックや履歴保存ではEND処理を実行しません。</small></section>
+</details><div class="journal-footer"><div class="actions"><button id="journalArchive">今回分を履歴へ保存</button><button id="journalNext" class="primary">新しいターンを作る</button></div><p id="journalArchiveState" class="journal-hint"></p><div class="actions"><button id="journalExport">全履歴をJSONで書き出す</button><button id="journalImport">バックアップを復元</button><button id="journalReload">保存状態を再読込</button><input id="journalImportFile" type="file" accept=".json,application/json" hidden></div><p class="journal-hint">保存先はこのブラウザ内です。PC・スマホ間の自動同期やGit保全は行いません。別環境への引き継ぎにはJSONを保存してください。</p></div>
+</div></dialog>
+<script>
+(()=>{
+"use strict";
+const key="portfolio-demo-turn-journal-v1",dialog=document.getElementById("turnJournal"),get=id=>document.getElementById(id);
+const now=()=>new Date().toISOString(),id=()=>crypto.randomUUID?crypto.randomUUID():"t-"+Date.now()+"-"+Math.random().toString(36).slice(2);
+const names=["復元","ドロー","メイン","検証・確認","END"],states=["未確認","作業中","確認済み","対象外"],actions=["メモ","確認した","選んだ","依頼した","実施結果を確認した","保留にした"];
+const stamp=s=>new Date(s).toLocaleString("ja-JP",{timeZone:"Asia/Tokyo"})+" JST";
+function template(){return `日付：　　　　　　　今回のターン：
+
+【今回やること】
+□
+□
+□
+
+【やったこと・気づいたこと】
+・
+・
+・
+
+【終わったこと／確認できたこと】
+✓
+
+【残件・次回やること】
+□
+□
+
+【END・保存先メモ】
+確認：未確認 ／ 保存先：
+`;}
+function fresh(previous=null){return {sheet:template(),id:id(),createdAt:now(),updatedAt:now(),checklist:names.map(()=>"未確認"),entries:[],carry:previous?previous.carry.filter(x=>!x.done).map(x=>({...x,fromTurn:x.fromTurn||previous.id})):[],end:{confirmed:false,evidence:""},previousId:previous?.id||null,closedAt:null};}
+let doc=null,raw=null,blocked=false,loadError="",tab="current",historyId="",editing=null,lastSaved=null,sheetViewId="",sheetDirty=false;
+function validTurn(t){return t&&(t.sheet===undefined||typeof t.sheet==="string"&&t.sheet.length<=20000)&&typeof t.id==="string"&&typeof t.createdAt==="string"&&Number.isFinite(Date.parse(t.createdAt))&&typeof t.updatedAt==="string"&&Number.isFinite(Date.parse(t.updatedAt))&&Array.isArray(t.checklist)&&t.checklist.length===5&&t.checklist.every(x=>states.includes(x))&&Array.isArray(t.entries)&&t.entries.length<=10000&&new Set(t.entries.map(e=>e.id)).size===t.entries.length&&t.entries.every(e=>e&&typeof e.id==="string"&&Number.isInteger(e.phase)&&e.phase>=0&&e.phase<5&&actions.includes(e.action)&&typeof e.note==="string"&&e.note.trim()&&e.note.length<=2000&&typeof e.card==="string"&&e.card.length<=180&&Number.isFinite(Date.parse(e.at)))&&Array.isArray(t.carry)&&t.carry.length<=10000&&new Set(t.carry.map(x=>x.id)).size===t.carry.length&&t.carry.every(x=>x&&typeof x.id==="string"&&typeof x.note==="string"&&x.note.trim()&&x.note.length<=1000&&typeof x.card==="string"&&x.card.length<=180&&typeof x.done==="boolean")&&t.end&&typeof t.end.confirmed==="boolean"&&typeof t.end.evidence==="string"&&t.end.evidence.length<=1000&&(!t.closedAt||Number.isFinite(Date.parse(t.closedAt)));}
+function validate(x){if(!x||x.version!==1||!validTurn(x.current)||!Array.isArray(x.history)||x.history.length>1000||!x.history.every(t=>validTurn(t)&&t.closedAt)||new Set(x.history.map(t=>t.id)).size!==x.history.length||x.history.some(t=>t.id===x.current.id))throw Error("履歴の形式を確認できません。既存の保存値は上書きしません。");return x;}
+function load(){blocked=false;loadError="";try{raw=localStorage.getItem(key);doc=raw===null?{version:1,current:fresh(),history:[]}:validate(JSON.parse(raw));lastSaved=raw?doc.current.updatedAt:null;}catch(e){blocked=true;loadError="保存情報を読めません。自動で初期化しません。バックアップからの復元か、保存領域の確認が必要です。";doc=doc||{version:1,current:fresh(),history:[]};}editing=null;}
+function message(s){get("journalMsg").textContent=s;}
+function save(next){if(blocked){message(loadError||"別タブで更新されています。再読込してから記録してください。");return false;}try{validate(next);if(localStorage.getItem(key)!==raw){blocked=true;loadError="別タブで履歴が更新されました。入力欄の内容を控え、保存状態を再読込してください。";render();message(loadError);return false;}next.current.updatedAt=now();const encoded=JSON.stringify(next);if(encoded.length>4000000)throw Error("保存量が上限に近づいています。JSONを書き出してください。");localStorage.setItem(key,encoded);if(localStorage.getItem(key)!==encoded)throw Error("保存後の照合に失敗しました。");raw=encoded;doc=next;lastSaved=now();return true;}catch(e){message("未保存："+e.message+" 入力内容を控えてJSONの書き出し・保存領域を確認してください。");return false;}}
+function mutate(fn){const next=JSON.parse(JSON.stringify(doc));fn(next.current,next);return save(next);}
+function histories(){return doc.current.closedAt?[...doc.history,doc.current]:doc.history;}
+function viewed(){return tab==="history"?histories().find(t=>t.id===historyId)||null:doc.current;}
+function sheetDraft(){return get("journalSheet").value!==(viewed()?.sheet||"");}
+function readonly(){return tab==="history"||!!doc.current.closedAt||blocked;}
+function make(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;}
+function resetForm(){editing=null;get("journalNote").value="";get("journalCard").value="";get("journalFormTitle").textContent="履歴を追加（手動記録）";get("journalAdd").textContent="＋ 履歴に追加";get("journalCancelEdit").classList.add("hidden");}
+function render(){
+const t=viewed(),ro=readonly();
+if(sheetViewId!==(t?.id||"")||!sheetDirty){get("journalSheet").value=t?.sheet||"";sheetViewId=t?.id||"";sheetDirty=false;}get("journalSheet").readOnly=ro;
+get("journalSheetSave").disabled=ro;get("journalTemplate").disabled=ro;
+get("journalSheetState").textContent=ro?"保存したメモの閲覧です。":"書き終えたら「メモを保存」。自動保存ではありません。";get("journalTitle").textContent=tab==="history"?"過去のターン":"今回のターン";get("journalTurn").textContent=t?"TURN · "+t.id.slice(0,8):"履歴なし";
+get("journalCurrentTab").setAttribute("aria-pressed",String(tab==="current"));get("journalHistoryTab").setAttribute("aria-pressed",String(tab==="history"));get("journalHistoryPicker").classList.toggle("hidden",tab!=="history");
+get("journalHistorySelect").replaceChildren();for(const h of [...histories()].reverse()){const o=make("option","",stamp(h.createdAt)+" / "+h.id.slice(0,8));o.value=h.id;o.selected=h.id===historyId;get("journalHistorySelect").append(o);}
+get("journalSaveState").textContent=blocked?loadError:lastSaved?"このブラウザ内に保存・照合済み。最終記録："+stamp(lastSaved):"未保存。最初の手動記録で、このブラウザ内に保存します。";
+const prev=doc.history.find(x=>x.id===doc.current.previousId);get("journalPrevious").textContent=tab==="current"&&prev?"前回 "+prev.id.slice(0,8)+"：個別登録の残件 "+prev.carry.filter(x=>!x.done).length+"件（自由メモは履歴参照） ／ END結果 "+(prev.end.confirmed?"手動確認済み":"未確認")+"。過去の履歴から確認できます。":"";
+get("journalChecklist").replaceChildren();get("journalEntries").replaceChildren();get("journalCarry").replaceChildren();
+if(t){names.forEach((name,i)=>{const row=make("div","phase-row"),label=make("label","","0"+(i+1)+" "+name),sel=make("select");sel.setAttribute("aria-label",name+"の手動点検状態");sel.id="journal-check-"+i;label.htmlFor=sel.id;for(const v of states){const o=make("option","",v);o.value=v;o.selected=t.checklist[i]===v;sel.append(o);}sel.disabled=ro;sel.onchange=()=>{const v=sel.value;if(mutate(c=>{c.checklist[i]=v}))message("点検状態を手動記録しました。");render()};row.append(label,sel);get("journalChecklist").append(row);});
+get("journalEntryCount").textContent=t.entries.length+"件";
+if(!t.entries.length)get("journalEntries").append(make("p","journal-hint","履歴はまだありません。選択・依頼・結果確認を区別して追加します。"));
+for(const entry of t.entries){const row=make("article","log-entry"),top=make("div","log-title");top.append(make("strong","",names[entry.phase]+" / "+entry.action));const edit=make("button","","編集");edit.type="button";edit.disabled=ro;edit.onclick=()=>{editing=entry.id;get("journalPhase").value=String(entry.phase);get("journalAction").value=entry.action;get("journalNote").value=entry.note;get("journalCard").value=entry.card;get("journalFormTitle").textContent="履歴を編集";get("journalAdd").textContent="編集を保存";get("journalCancelEdit").classList.remove("hidden");get("journalNote").focus()};top.append(edit);row.append(top,make("p","",entry.note));if(entry.card)row.append(make("div","task-id",entry.card));row.append(make("small","",stamp(entry.at)+(entry.editedAt?" / 編集 "+stamp(entry.editedAt):"")));get("journalEntries").append(row);}
+if(!t.carry.length)get("journalCarry").append(make("p","journal-hint","残件メモはありません。未完がないという判定ではありません。"));
+for(const c of t.carry){const row=make("label","carry-row"),box=make("input");box.type="checkbox";box.checked=c.done;box.disabled=ro;box.setAttribute("aria-label",c.note+"の解消を手動記録");box.onchange=()=>{if(mutate(current=>{current.carry.find(x=>x.id===c.id).done=box.checked}))message("残件の手動確認を保存しました。");render()};const desc=make("span","",c.note);if(c.card)desc.append(make("div","task-id",c.card));if(c.fromTurn)desc.append(make("small","","前回からの持越し"));row.append(box,desc);get("journalCarry").append(row);}
+get("journalEnd").checked=t.end.confirmed;get("journalEndEvidence").value=t.end.evidence;}
+get("journalEnd").disabled=ro||!t;get("journalEndEvidence").disabled=ro||!t;
+get("journalEntryForm").classList.toggle("hidden",ro||!t);get("journalCarryForm").classList.toggle("hidden",ro||!t);
+get("journalArchive").disabled=ro;get("journalNext").disabled=tab!=="current"||!doc.current.closedAt||blocked;
+get("journalArchiveState").textContent=doc.current.closedAt?"今回分を履歴へ保存済み。新しいターンでは未解消の残件を持ち越します。":"今回を保存してから新しいターンを作れます。END未確認のまま区切る場合も、その状態を残します。";
+}
+for(let i=0;i<5;i++){const o=make("option","",names[i]);o.value=String(i);get("journalPhase").append(o);}
+get("journalEntryForm").onsubmit=e=>{e.preventDefault();if(readonly())return;const note=get("journalNote").value.trim(),card=get("journalCard").value.trim(),phase=Number(get("journalPhase").value),action=get("journalAction").value;if(!note)return;if(mutate(t=>{if(editing){const v=t.entries.find(x=>x.id===editing);if(!v)throw Error("編集対象を再確認してください");Object.assign(v,{note,card,phase,action,editedAt:now()})}else t.entries.push({id:id(),at:now(),note,card,phase,action})})){resetForm();render();message("履歴を保存しました。実タスクの状態は変更していません。")}};
+get("journalCancelEdit").onclick=resetForm;
+get("journalUseCard").onclick=()=>{get("journalCard").value=selectedNote()?.id||"";message(get("journalCard").value?"選択カードIDを入力しました。履歴の追加は手動です。":"デッキでカードを選択してください。")};
+get("journalCarryForm").onsubmit=e=>{e.preventDefault();if(readonly())return;const note=get("journalCarryNote").value.trim(),card=get("journalCarryCard").value.trim();if(!note)return;if(doc.current.carry.some(x=>!x.done&&x.note===note&&x.card===card)){message("同じ未解消残件が既にあります。");return;}if(mutate(t=>t.carry.push({id:id(),note,card,done:false}))){get("journalCarryNote").value="";get("journalCarryCard").value="";render();message("残件を保存しました。")}};
+get("journalEnd").onchange=()=>{const v=get("journalEnd").checked;if(mutate(t=>{t.end.confirmed=v;t.end.evidence=get("journalEndEvidence").value.trim()}))message(v?"ENDの保存結果を確認したという手動記録です。":"END結果を未確認へ戻しました。");render()};
+get("journalEndEvidence").onchange=()=>{if(mutate(t=>{t.end.evidence=get("journalEndEvidence").value.trim()}))message("確認根拠を保存しました。");render()};
+get("journalArchive").onclick=()=>{if(readonly())return;if(get("journalNote").value.trim()||get("journalCarryNote").value.trim()||sheetDraft()){message("入力中のメモがあります。履歴・残件へ追加するか、入力を取り消してから保存してください。");return;}if(mutate(t=>{t.end.evidence=get("journalEndEvidence").value.trim();t.closedAt=now()})){resetForm();render();message("今回分を履歴へ保存しました。END処理・Git保全は実行していません。")}};
+get("journalNext").onclick=()=>{if(!doc.current.closedAt||blocked||tab!=="current")return;const next=JSON.parse(JSON.stringify(doc));next.history.push(next.current);next.current=fresh(next.current);if(save(next)){resetForm();render();message("新しいターンを作りました。前回の未解消残件を持ち越しています。")}};
+get("journalCurrentTab").onclick=()=>{if(sheetDraft()||get("journalNote").value.trim()||get("journalCarryNote").value.trim()){message("入力中のメモを保存してから切り替えてください。");return;}tab="current";resetForm();render()};
+get("journalHistoryTab").onclick=()=>{if(sheetDraft()||get("journalNote").value.trim()||get("journalCarryNote").value.trim()){message("入力中のメモを保存してから切り替えてください。");return;}tab="history";historyId=histories().at(-1)?.id||"";resetForm();render()};
+get("journalHistorySelect").onchange=()=>{historyId=get("journalHistorySelect").value;render()};
+get("journalSheetSave").onclick=()=>{if(readonly())return;const v=get("journalSheet").value;if(mutate(t=>{t.sheet=v})){sheetDirty=false;render();message("メモ用紙をこのブラウザ内に保存・照合しました。")}};
+get("journalTemplate").onclick=()=>{if(get("journalSheet").value.trim()){message("既存の文章を上書きしません。空のメモ欄にひな形を挿入できます。");return;}get("journalSheet").value=template();sheetDirty=true;get("journalSheetState").textContent="ひな形を挿入しました。まだ保存していません。";get("journalSheet").focus()};
+get("journalSheet").oninput=()=>{sheetDirty=sheetDraft();get("journalSheetState").textContent=sheetDraft()?"変更あり・未保存":"保存内容と同じです。";};
+function downloadText(content,name,mime){const url=URL.createObjectURL(new Blob([content],{type:mime})),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+get("journalTextExport").onclick=()=>{downloadText(get("journalSheet").value,"operation-deck-memo-"+(viewed()?.id.slice(0,8)||"blank")+".txt","text/plain;charset=utf-8");message("テキストのダウンロードを開始しました。保存先を確認してください。")};
+const printArea=make("div");printArea.id="journalPrint";document.body.append(printArea);
+get("journalPrintButton").onclick=()=>{printArea.replaceChildren(make("h2","","AI Operation Deck 作業メモ"),make("p","","ターン "+(viewed()?.id.slice(0,8)||"未作成")),make("pre","",get("journalSheet").value||template()));window.print()};
+get("journalClose").onclick=()=>dialog.close();
+get("journalReload").onclick=()=>{if(get("journalNote").value.trim()||get("journalCarryNote").value.trim()||sheetDraft()){message("入力欄のメモを控えるか、入力を取り消してから再読込してください。");return;}load();render();message(blocked?loadError:"保存情報を再読込しました。")};
+get("journalExport").onclick=()=>{const payload=blocked&&raw?raw:JSON.stringify(doc,null,2);const url=URL.createObjectURL(new Blob([payload],{type:"application/json"})),a=document.createElement("a");a.href=url;a.download="operation-deck-turns-"+new Date().toISOString().slice(0,10)+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);message("JSONのダウンロードを開始しました。保存先のファイルを確認してください。Git保全ではありません。")};
+get("journalImport").onclick=()=>get("journalImportFile").click();
+get("journalImportFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>4000000)throw Error("4MB以下の履歴JSONを使用してください");const incoming=validate(JSON.parse(await f.text()));if(raw!==null){if(JSON.stringify(incoming)===JSON.stringify(doc)){message("同じ履歴です。重複反映しません。");return;}throw Error("既存の履歴を上書きしません。現在のJSONを控え、記録のない別ブラウザ・環境で復元してください");}if(blocked)throw Error("保存領域の読取を回復してから復元してください");if(save(incoming)){tab="current";resetForm();render();message("バックアップを復元しました。端末間の自動同期ではありません。")}}catch(e){message("復元しませんでした："+e.message)}finally{get("journalImportFile").value=""}};
+window.addEventListener("storage",e=>{if(e.key===key){blocked=true;loadError="別タブで履歴が更新されました。入力を控え、保存状態を再読込してください。";if(dialog.open){render();message(loadError)}}});
+const open=make("button","","今回のターン・作業メモ");open.id="journalOpen";open.onclick=()=>{if(!dialog.open){get("journalPhase").value=String(state.phase);render();dialog.showModal();dialog.scrollTop=0;}};
+document.querySelector("header .actions").prepend(open);load();render();
+window.TurnJournalModel={key,validate,getSnapshot:()=>JSON.parse(JSON.stringify(doc))};
+})();
+</script>
+
+
+<script>
+/* Workflow Set 01 / provisional. No network writes, Kanban writes or END actions. */
+(()=>{
+"use strict";
+const KEY="portfolio-demo-workflow-v1";
+const PHASES=[
+ {name:"復元フェイズ・点検表",detail:"直近のEND、カードと予約の状態を読み、点検表をシミュレーション。取得していないGit/メール/メモ用チェック状態は未確認のまま残す。",
+ prompt:"司令塔モードで復元フェイズを実施し、Memo Petal日次5項目とカンバン点検8項目を使って点検表をシミュレーションしてください。最新END・制作会議・予約・引き継ぎ・GateをREADで照合し、確定／推定／未確認を区別。Git/メール等の未取得領域は勝手にPASSにしないでください。スマホ利用を前提に、PCでの本人受入は帰宅後へ分離。"},
+ {name:"不満の吐き出しタイム",detail:"不満・使いにくさ・改善案を自由に挙げる。なければスキップ。アイデアは分類して後続候補へ回し、勝手に実装しない。",
+ prompt:"運用の不満や思いついた改善案を聞いてください。①軽微な改善 ②Work調査・実装候補 ③制作会議論点 ④緊急障害、に分類。緊急でなければ改善案を保存・提案して通常制作ワークフローへ戻してください。特になければこの工程をスキップして制作会議ロットへ。カンバンに自動登録しないでください。"},
+ {name:"制作会議ロット",detail:"制作会議テーマを候補から選ぶ。既決・Codex実装待ち・未審議を区別して重複会議を避ける。裁定は別チャットで行う。",
+ prompt:"制作会議の未審議テーマを最新のDocsとAIワークハブからREAD照合し、閉廷済み／実装待ち／本当に審議すべき事項を分けてください。原典を再読して優先順位付きの候補を提示し、選んだ1件の別チャット専用起動プロンプトを用意してください。本人承認と保存・読み戻しは別工程で、今回はゲーム本体を書き換えないでください。"},
+ {name:"予約タスク選定",detail:"点検・改善要望・会議成果からWork第1〜3ロットの候補を整理。既存予約やCodexとの二重登録を防ぎ、本人確定後に既存予約へ。",
+ prompt:"今回の点検・不満メモ・制作会議の引き継ぎから、Work第1〜3ロットに入れる予約タスクの候補を整理してください。優先度1〜10、根拠、対象カード、依存、Human Gate、完了条件、成果物を提示。既完了やCodex予約と重複しない。本人が予約内容を確定するまでは登録も自動実行もしないでください。"},
+ {name:"引き継ぎ・終了",detail:"今回決めた内容・未完・PC Gate・予約案を次の復元につなぐ。ENDの実行は別途指示が必要。",
+ prompt:"今回の復元・制作会議・Work予約候補・ツール改善要望を、実施済み／提案のみ／未確認／Human Gateで分類して引き継ぎPacketにまとめてください。担当と次回再開位置、出典を明確にし、本人未受入を完了扱いにしないでください。END処理・Git push・本番反映は明示指示がある場合だけ実施してください。"}
+];
+const get=id=>document.getElementById(id);
+const statuses={todo:"未着手",confirmed:"確認済み（手動）",skipped:"今回対象外"};
+const original=()=>({version:1,index:0,status:Array(5).fill("todo"),paused:false});
+let current=original(),saved=null,blocked=false;
+function check(v){return v&&v.version===1&&Number.isInteger(v.index)&&v.index>=0&&v.index<5&&Array.isArray(v.status)&&v.status.length===5&&v.status.every(x=>Object.hasOwn(statuses,x))&&typeof v.paused==="boolean";}
+function message(v){get("wfMessage").textContent=v;}
+try{saved=localStorage.getItem(KEY);if(saved!==null){let x=JSON.parse(saved);if(!check(x))throw Error("INVALID_STATE");current=x;}}catch{blocked=true;message("保存データの形式が不正です。元データは上書きしません。ブラウザ内のデータを確認してください。");}
+function persist(){if(blocked)return false;try{if(localStorage.getItem(KEY)!==saved){blocked=true;message("別タブで記録が変更されました。再読込して確認してください。");return false;}const value=JSON.stringify(current);localStorage.setItem(KEY,value);if(localStorage.getItem(KEY)!==value)throw Error("SAVE_VERIFY_FAILED");saved=value;return true;}catch(e){message("記録を保存できません："+e.message);return false;}}
+function snapshot(){return window.DeckModel&&window.DeckModel.getSnapshot?window.DeckModel.getSnapshot():null;}
+function counters(s){if(!s||s.mode==="demo"||!s.valid)return null;const ns=s.notes.filter(n=>!n.archived);const columns={};for(const n of ns)columns[n.column]=(columns[n.column]||0)+1;const workIds=new Set(["default","maintenance-first","work-break"]);
+const workWaiting=ns.filter(n=>workIds.has(n.queueSetId)&&n.queueStatus==="queued"&&n.column!=="Done").length;
+return {total:ns.length,now:columns.Now||0,next:columns.Next||0,later:columns.Later||0,hold:columns.Hold||0,done:columns.Done||0,queued:ns.filter(n=>n.queueStatus==="queued").length,blocked:ns.filter(n=>n.queueStatus==="blocked").length,workWaiting,meeting:ns.filter(n=>/会議/.test(n.title||"")&&n.column!=="Done").length,at:s.time};}
+function describe(i,s){
+const c=counters(s);
+if(!c)return "実データ未取得。この公開用デモは実サービスへ接続しません。サンプルJSONの取込と手動工程の操作を試せます。";
+const stale=s.mode==="snapshot"?"取込版・現在値は未確認。":s.stale?"取得から5分以上経過。再READを推奨。":"読取時点の参考値。";
+if(i===0)return "参考集計：Now "+c.now+"／Next "+c.next+"／Later "+c.later+"／Hold "+c.hold+"／未保管Done "+c.done+"。予約待機 "+c.queued+"／blocked "+c.blocked+"。\n"+stale+" メモのチェック状態・最新END本文・Git・メール・本人受入は別途照合が必要。";
+if(i===1)return "現在のデッキからツールへの不満は自動検出できません。本人の自由な意見を収集。問題がなければ「今回スキップ」で次へ。";
+if(i===2)return "未Doneの「会議」名を含むカード："+c.meeting+"件（キーワード参考値）。実際の未審議件数ではありません。閉廷Docs・実装カードと重複照合が必要。";
+if(i===3)return "Work第1〜3ロットでqueueStatus=queued："+c.workWaiting+"件（カンバンREAD）。completedは過去の予約履歴で、次回実行可能とは判定しません。Codex予約とは別。";
+return "引き継ぎ候補の母集団：未アーカイブ "+c.total+"件。対象・END・実装済み・本人受入済みの判定はここでは自動で行いません。";
+}
+function render(){
+const s=snapshot(),c=counters(s);
+get("wfReadout").textContent=c?("点検シミュレーション（"+(s.mode==="live"?"LIVE READ":"JSON参照")+"）：未アーカイブ "+c.total+"件／予約待機 "+c.queued+"件／Hold "+c.hold+"件。点検完了ではありません。"):"合成サンプルを表示中。工程の選択・手動確認・作業メモを試せます。";
+const flow=get("wfFlow");flow.replaceChildren();
+PHASES.forEach((step,i)=>{
+ const li=document.createElement("li"),b=document.createElement("button"),n=document.createElement("span"),name=document.createElement("span"),state=document.createElement("span");
+ b.type="button";b.className="wf-stage";b.dataset.status=current.status[i];b.setAttribute("aria-current",current.index===i?"step":"false");b.setAttribute("aria-label",step.name+"："+statuses[current.status[i]]);n.className="wf-number";n.textContent="0"+(i+1);name.className="wf-name";name.textContent=step.name;state.className="wf-state";state.textContent=statuses[current.status[i]];
+ b.append(n,name,state);b.onclick=()=>{current.index=i;if(persist())render()};li.append(b);flow.append(li);
+});
+const i=current.index;
+get("wfStepTitle").textContent="Phase "+(i+1)+"｜"+PHASES[i].name;
+get("wfStepState").textContent=current.paused?"中断中":statuses[current.status[i]];
+get("wfStepDesc").textContent=PHASES[i].detail;
+get("wfStepEvidence").textContent=describe(i,s);
+get("wfPrompt").value="【ワークフローロット01｜暫定版・手動進行】\n"+PHASES[i].prompt+"\n今回の工程："+(i+1)+"/5。表示中の状態と本人裁定は別。端末・出典の取得可否を明示し、PC限定Gateは保留。予約・実装・ENDは明示された範囲に限定。";
+get("wfPause").textContent=current.paused?"中断解除・再開":"一時中断";
+get("wfNext").disabled=i===4;get("wfNext").textContent=i===4?"最終工程":"次の工程へ";
+for(const id of ["wfConfirm","wfSkip","wfPause","wfNext","wfReset"])get(id).disabled=blocked;
+}
+function update(fn){if(blocked)return;fn();if(persist())render();}
+function advance(){if(current.index<4)current.index++;}
+get("wfConfirm").onclick=()=>update(()=>{current.status[current.index]="confirmed";current.paused=false;advance();message("本人操作により「確認済み」と記録しました。実タスクは変更していません。")});
+get("wfSkip").onclick=()=>update(()=>{current.status[current.index]="skipped";current.paused=false;advance();message("今回の対象外として記録しました。次の工程へ進めます。")});
+get("wfPause").onclick=()=>update(()=>{current.paused=!current.paused;message(current.paused?"再開位置をこのブラウザ内に保存しました。":"工程を再開しました。")});
+get("wfNext").onclick=()=>update(()=>{advance();message("次の工程を選択しました。前工程の完了・受入を意味しません。")});
+get("wfReset").onclick=()=>{if(blocked)return;if(!confirm("ワークフロー01の手動進行記録だけを初期化しますか？ 予約・作業メモ・カンバンは変更しません。"))return;update(()=>{current=original();message("ワークフローの手動記録だけ初期化しました。")})};
+get("wfToggle").onclick=()=>{const hidden=get("wfContent").hidden;get("wfContent").hidden=!hidden;get("wfToggle").setAttribute("aria-expanded",String(hidden));get("wfToggle").textContent=hidden?"工程を折りたたむ":"工程を展開する";};
+get("wfJournal").onclick=()=>{const b=get("journalOpen");if(b)b.click();else message("作業メモを起動できませんでした。")};
+get("wfCopy").onclick=async()=>{try{if(!navigator.clipboard?.writeText)throw Error("MANUAL");await navigator.clipboard.writeText(get("wfPrompt").value);message("プロンプトをコピーしました。ChatGPTへの送信・実作業は行っていません。");}catch{get("wfPrompt").focus();get("wfPrompt").select();message("自動コピーを利用できません。選択した文章をコピーしてください。");}};
+window.addEventListener("storage",e=>{if(e.key===KEY&&e.newValue!==saved){blocked=true;message("別タブで記録が更新されました。画面を再読み込みしてください。");render();}});
+window.WorkflowSetModel={phases:PHASES.map(x=>x.name),refresh:render,readState:()=>JSON.parse(JSON.stringify(current)),counters};
+render();
+})();
+</script>
+
+</body></html>

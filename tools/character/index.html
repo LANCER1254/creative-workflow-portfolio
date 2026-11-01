@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Character Size Viewer</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body><section class="demo-intro"><a href="../index.html">← デモ一覧</a><p>CHARACTER SIZE VIEWER / 合成シルエット</p><h1>並べるだけで、身長差が見える。</h1><p>大きさの違う画像を同じ縮尺へ。身長を入力すると、基準キャラに合わせて足元を揃えます。</p><ol><li>「比較サンプル」を押す</li><li>Bの身長を165→180cmに変更</li><li>表示倍率を変えても、身長比は変わりません</li></ol><button id="demo-sample">比較サンプル・初期状態へ</button><button id="demo-save">比較条件をJSON保存</button><label>比較条件を復元 <input id="demo-import" type="file" accept=".json"></label><p id="demo-status" role="status"></p><p>サンプル3体は図形です。実キャラ素材は含みません。PNG追加はメモリ内のみで、JSON保存はサンプル3体の比較条件が対象です。配置は読込順・自動整列。ドラッグ再配置はありません。</p></section>
+    <header class="app-header">
+      <div>
+        <h1>Character Size Viewer</h1>
+        <p>Ren'Py standing PNG size list</p>
+      </div>
+      <label class="file-button">
+        PNG読み込み
+        <input id="png-input" type="file" accept="image/png,.png" multiple>
+      </label>
+    </header>
+
+    <main class="app-layout">
+      <section class="panel" aria-labelledby="character-list-heading">
+        <div class="panel-header">
+          <h2 id="character-list-heading">Character List</h2>
+          <span id="character-count" class="count">0</span>
+        </div>
+
+        <div id="warnings" class="warnings" aria-live="polite"></div>
+
+        <div class="table-wrap">
+          <table class="character-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>File</th>
+                <th>Image Size</th>
+                <th>Height (cm)</th>
+                <th>Scale</th>
+                <th>Base</th>
+              </tr>
+            </thead>
+            <tbody id="character-list">
+              <tr class="empty-row">
+                <td colspan="6">PNGを読み込むと一覧に追加されます。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel preview-panel" aria-labelledby="preview-heading">
+        <div class="panel-header">
+          <h2 id="preview-heading">Preview</h2>
+          <label class="preview-scale-control" for="preview-scale">
+            表示倍率
+            <select id="preview-scale">
+              <option value="0.25">25%</option>
+              <option value="0.5">50%</option>
+              <option value="0.75">75%</option>
+              <option value="1" selected>100%</option>
+              <option value="1.25">125%</option>
+              <option value="1.5">150%</option>
+            </select>
+            <output id="preview-scale-value" for="preview-scale">100%</output>
+          </label>
+        </div>
+        <div class="preview-viewport">
+          <div id="preview-list" class="preview-list">
+            <p class="preview-empty">PNGを読み込み、身長と基準キャラクターを設定してください。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./models.js"></script>
+    <script src="./calculator.js"></script>
+    <script src="./image_loader.js"></script>
+    <script src="./renderer.js"></script>
+    <script src="./ui.js"></script>
+    <script src="./app.js"></script>
+  <script src="demo.js"></script></body>
+</html>

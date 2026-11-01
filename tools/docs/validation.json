@@ -1,0 +1,107 @@
+{
+  "testedAt": "2026-10-26T14:51:08.971Z",
+  "browser": "Chrome/154.0.8037.57",
+  "scope": "synthetic demo browser automation; user acceptance pending",
+  "results": [
+    {
+      "tool": "memo",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "edit / board movement / checklist",
+        "reload persistence",
+        "downloaded JSON empty-context restore exact",
+        "invalid JSON preserves state",
+        "XSS stays text",
+        "stale write refusal"
+      ]
+    },
+    {
+      "tool": "kanban",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "result / remaining work edit",
+        "Done syncs reservation completion",
+        "next reservation visible",
+        "archive / restore keeps result",
+        "downloaded JSON empty-context restore exact",
+        "invalid import preservation",
+        "cross-tab stale save refusal"
+      ]
+    },
+    {
+      "tool": "character",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "3 synthetic silhouettes",
+        "height input changes rendered ratio",
+        "zoom leaves ratio / half size",
+        "downloaded sample-condition JSON roundtrip",
+        "invalid negative height import preserves state",
+        "zero base produces warning / no false scale",
+        "corrupt PNG produces warning without missing sample"
+      ]
+    },
+    {
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "all pages fit viewport",
+        "no external / API / write HTTP requests",
+        "no JavaScript exceptions"
+      ]
+    },
+    {
+      "tool": "memo",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "edit / board movement / checklist",
+        "reload persistence",
+        "downloaded JSON empty-context restore exact",
+        "invalid JSON preserves state",
+        "XSS stays text",
+        "stale write refusal"
+      ]
+    },
+    {
+      "tool": "kanban",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "result / remaining work edit",
+        "Done syncs reservation completion",
+        "next reservation visible",
+        "archive / restore keeps result",
+        "downloaded JSON empty-context restore exact",
+        "invalid import preservation",
+        "cross-tab stale save refusal"
+      ]
+    },
+    {
+      "tool": "character",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "3 synthetic silhouettes",
+        "height input changes rendered ratio",
+        "zoom leaves ratio / half size",
+        "downloaded sample-condition JSON roundtrip",
+        "invalid negative height import preserves state",
+        "zero base produces warning / no false scale",
+        "corrupt PNG produces warning without missing sample"
+      ]
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "all pages fit viewport",
+        "no external / API / write HTTP requests",
+        "no JavaScript exceptions"
+      ]
+    }
+  ]
+}

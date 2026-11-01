@@ -1,0 +1,17 @@
+{
+  "scope": "Only these files; no parent repository or history",
+  "files": {
+    "README.md": "b58e2c5f88d34a695d0b42dd3975b106d615c2af546fc77b5824a46037c31365",
+    "docs/DESIGN.md": "4a216a50eccb3b5d3927abb14d4ecdf25af404ac355ae8162cfb4f0664e89c23",
+    "docs/PUBLISHING.md": "16d537e609cf76028a6da710514163f44ab42d197f5a83dc353962cbb40b2715",
+    "docs/VALIDATION.md": "c52506e32a3942ffb13c7ab961c496a1e7bee842e90437723e68215a875232c8",
+    "docs/screenshots/desktop.png": "11b32f6ea1aed62eb06ec94406c534d0b3a5948ab14a1af64906e72132d794cf",
+    "docs/screenshots/mobile.png": "5710417e87763ffcb57753b905646cf97260abc6ffa278e2338fcef999cee334",
+    "docs/validation.json": "fc445b63314581c1bee00b607e12b3f39504ab8e25d686d96beade43556a9aac",
+    "index.html": "bbe457c9e0fb5259d15cbc71ad00f3d1545114ae76efba56db714fffafb107c4",
+    "package.json": "f69e9ba79385d9d903afc27b3a6f4e4877084d5505671534d33c1c7f1dc9242a",
+    "sample.json": "c8ee2aa56345271abea637b1f9f3b71e8dd648a7d0d4131d0509e37d111205fc",
+    "tests/browser.cjs": "7c417c76041482828bd4ed209ccd31b910e1d384478569ccb472ba4503a08c05",
+    "tests/static_check.py": "15fb38a4545e1b8c20cdecda2155c27689d958bd123b3d492cf774d21e8f984f"
+  }
+}

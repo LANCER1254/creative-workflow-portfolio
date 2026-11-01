@@ -1,0 +1,48 @@
+{
+  "testedAt": "2026-10-25T18:30:42.803Z",
+  "browser": "Chrome/154.0.8037.57",
+  "scope": "synthetic demo; browser automation; no real data or live services",
+  "results": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "5 phases / 8 categories",
+        "search / selection / prompt",
+        "blocked vs reserve",
+        "JSON import and malformed input",
+        "XSS remains text",
+        "journal reload persistence",
+        "JSON restore and divergent overwrite refusal",
+        "cross-tab conflict refused",
+        "no horizontal overflow",
+        "no API or external requests",
+        "no JavaScript errors"
+      ]
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "5 phases / 8 categories",
+        "search / selection / prompt",
+        "blocked vs reserve",
+        "JSON import and malformed input",
+        "XSS remains text",
+        "journal reload persistence",
+        "JSON restore and divergent overwrite refusal",
+        "cross-tab conflict refused",
+        "no horizontal overflow",
+        "no API or external requests",
+        "no JavaScript errors"
+      ]
+    },
+    {
+      "mode": "file",
+      "status": "PASS",
+      "checks": [
+        "standalone HTML renders without server"
+      ]
+    }
+  ]
+}
